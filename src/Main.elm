@@ -32,6 +32,11 @@ update msg model =
             , Cmd.none
             )
 
+        View.Next ->
+            ( Model.nextQuestion model
+            , Cmd.none
+            )
+
 
 
 -- SUBSCRIPTIONS
