@@ -68,20 +68,26 @@ viewQuiz quiz =
             [ div
                 [ class "html-wrapper" ]
                 (textHtml quiz.currentQuestion.description)
-            , div
-                [ class "answers" ]
-                (List.map
-                    (\entry ->
-                        div [ class "answer" ]
-                            (textHtml entry)
-                    )
-                    quiz.currentQuestion.incorrect
-                )
+            , viewAnswers quiz.currentQuestion.correct <|
+                quiz.currentQuestion.incorrect
             ]
         , div
             [ class "button-wrapper", onClick Next ]
             [ text "Далее" ]
         ]
+
+
+viewAnswers : String -> List String -> Html Msg
+viewAnswers correct incorrect =
+    div
+        [ class "answers" ]
+        (List.map
+            (\entry ->
+                div [ class "answer" ]
+                    (textHtml entry)
+            )
+            (correct :: incorrect)
+        )
 
 
 viewFinish =
