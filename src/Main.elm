@@ -32,10 +32,13 @@ update msg model =
             , Cmd.none
             )
 
-        View.Next ->
-            ( Model.nextQuestion model
-            , Cmd.none
-            )
+        View.Quiz quiz ->
+            case quiz of
+                View.Next ->
+                    ( Model.nextQuestion model, Cmd.none )
+
+                View.Answer ->
+                    ( Model.answerQuestion model, Cmd.none )
 
 
 
