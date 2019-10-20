@@ -1,4 +1,6 @@
-module Model exposing (Answer, Answered(..), Model(..), Question, QuizModel, answerQuestion, emptyModel, nextQuestion, questionsSize)
+module Model exposing (Answer, Answered(..), Model, Question, QuizModel, State(..), answerQuestion, emptyModel, nextQuestion, questionsSize)
+
+import Array
 
 
 type Answered
@@ -13,9 +15,15 @@ type alias QuizModel =
     }
 
 
-type Model
+type State
     = Quiz QuizModel
     | Finish
+
+
+type alias Model =
+    { state : State
+    , correctAnswers : Int
+    }
 
 
 type alias Answer =
@@ -51,54 +59,88 @@ numerateAnswers question =
     }
 
 
+emptyModel : Model
 emptyModel =
-    case questions of
-        question :: rest ->
-            Quiz
-                { currentQuestion = numerateAnswers question
-                , remainingQuestions = List.map numerateAnswers rest
-                , answered = NotYet
-                }
+    let
+        state_ =
+            case questions of
+                question :: rest ->
+                    Quiz
+                        { currentQuestion = numerateAnswers question
+                        , remainingQuestions = List.map numerateAnswers rest
+                        , answered = NotYet
+                        }
 
-        [] ->
-            Finish
+                [] ->
+                    Finish
+    in
+    { state = state_, correctAnswers = 0 }
 
 
 nextQuestion : Model -> Model
 nextQuestion model =
-    case model of
-        Quiz quiz ->
-            case quiz.remainingQuestions of
-                question :: rest ->
-                    Quiz
-                        { currentQuestion = question
-                        , remainingQuestions = rest
-                        , answered = NotYet
-                        }
+    let
+        state_ =
+            case model.state of
+                Quiz quiz ->
+                    case quiz.remainingQuestions of
+                        question :: rest ->
+                            Quiz
+                                { currentQuestion = question
+                                , remainingQuestions = rest
+                                , answered = NotYet
+                                }
+
+                        _ ->
+                            Finish
 
                 _ ->
                     Finish
+    in
+    { model | state = state_ }
 
-        _ ->
-            Finish
+
+isCorrect id quiz =
+    let
+        array =
+            Array.fromList quiz.currentQuestion.answers
+
+        answer =
+            Array.get id array
+    in
+    Maybe.withDefault False <| Maybe.map (\a -> a.correct) answer
 
 
 answerQuestion : Int -> Model -> Model
-answerQuestion answer model =
-    case model of
-        Quiz quiz ->
-            let
-                quiz_ =
-                    if quiz.answered == NotYet then
-                        { quiz | answered = Already answer }
+answerQuestion id model =
+    let
+        ( state_, correct ) =
+            case model.state of
+                Quiz quiz ->
+                    let
+                        quiz_ =
+                            if quiz.answered == NotYet then
+                                { quiz | answered = Already id }
 
-                    else
-                        quiz
-            in
-            Quiz quiz_
+                            else
+                                quiz
 
-        _ ->
-            Finish
+                        correct_ =
+                            isCorrect id quiz
+                    in
+                    ( Quiz quiz_, correct_ )
+
+                _ ->
+                    ( Finish, False )
+
+        correctAnswers =
+            if correct == True then
+                model.correctAnswers + 1
+
+            else
+                model.correctAnswers
+    in
+    { state = state_, correctAnswers = correctAnswers }
 
 
 questionsSize =

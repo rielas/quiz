@@ -41,12 +41,12 @@ view : Model.Model -> Html Msg
 view model =
     div
         [ class "game-wrapper" ]
-        [ case model of
+        [ case model.state of
             Model.Quiz quiz ->
                 viewQuiz quiz
 
             Model.Finish ->
-                viewFinish
+                viewFinish model.correctAnswers
         ]
 
 
@@ -156,9 +156,15 @@ viewAnswer answered answer =
         ([ div [] (textHtml answer.text) ] ++ comment)
 
 
-viewFinish =
+viewFinish correctAnswers =
     div []
         [ div
             []
             [ text "Конец" ]
+        , div []
+            [ text <|
+                String.fromInt correctAnswers
+                    ++ " from "
+                    ++ String.fromInt Model.questionsSize
+            ]
         ]
