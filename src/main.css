@@ -120,6 +120,16 @@ button {
     border-bottom: none;
 }
 
+.answer-container {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0px;
+}
+
 .comment {
     margin-top: 6px;
     padding-right: 5px;

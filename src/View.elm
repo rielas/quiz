@@ -81,7 +81,9 @@ viewQuiz quiz =
                 [ div
                     [ class "html-wrapper" ]
                     (textHtml quiz.currentQuestion.description)
-                , viewAnswers quiz.answered quiz.currentQuestion.answers
+                , viewAnswers quiz.answered
+                    quiz.currentQuestion.answers
+                    quiz.currentQuestion.fail
                 ]
             ]
     in
@@ -103,15 +105,15 @@ viewQuiz quiz =
         )
 
 
-viewAnswers : Model.Answered -> List Model.Answer -> Html Msg
-viewAnswers answered answers =
+viewAnswers : Model.Answered -> List Model.Answer -> String -> Html Msg
+viewAnswers answered answers fail =
     div
         [ class "answers" ]
-        (List.indexedMap (viewAnswer answered) answers)
+        (List.indexedMap (viewAnswer answered fail) answers)
 
 
-viewAnswer : Model.Answered -> Int -> Model.Answer -> Html Msg
-viewAnswer answered id answer =
+viewAnswer : Model.Answered -> String -> Int -> Model.Answer -> Html Msg
+viewAnswer answered fail id answer =
     let
         class_ =
             case answered of
@@ -136,7 +138,7 @@ viewAnswer answered id answer =
                             [ div [ class "comment" ] [ text "Правильно" ] ]
 
                         else
-                            [ div [ class "comment" ] [ text "Ошибка" ] ]
+                            [ div [ class "comment" ] (textHtml fail) ]
 
                     else
                         []
@@ -153,7 +155,7 @@ viewAnswer answered id answer =
                     [ onClick <| Quiz <| Answer id ]
     in
     div (class ("answer" ++ class_) :: onClick_)
-        ([ div [] (textHtml answer.text) ] ++ comment)
+        ([ div [ class "answer-container" ] (textHtml answer.text) ] ++ comment)
 
 
 viewFinish correctAnswers =
