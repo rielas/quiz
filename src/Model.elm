@@ -29,7 +29,6 @@ type alias Model =
 type alias Answer =
     { text : String
     , correct : Bool
-    , id : Int
     }
 
 
@@ -40,25 +39,6 @@ type alias Question =
     }
 
 
-answerWithId : Int -> { a | text : String, correct : Bool } -> Answer
-answerWithId i a =
-    { text = a.text
-    , correct = a.correct
-    , id = i
-    }
-
-
-numerateAnswers question =
-    let
-        answers_ =
-            List.indexedMap answerWithId question.answers
-    in
-    { description = question.description
-    , answers = answers_
-    , fail = question.fail
-    }
-
-
 emptyModel : Model
 emptyModel =
     let
@@ -66,8 +46,8 @@ emptyModel =
             case questions of
                 question :: rest ->
                     Quiz
-                        { currentQuestion = numerateAnswers question
-                        , remainingQuestions = List.map numerateAnswers rest
+                        { currentQuestion = question
+                        , remainingQuestions = rest
                         , answered = NotYet
                         }
 

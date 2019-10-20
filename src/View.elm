@@ -107,19 +107,19 @@ viewAnswers : Model.Answered -> List Model.Answer -> Html Msg
 viewAnswers answered answers =
     div
         [ class "answers" ]
-        (List.map (viewAnswer answered) answers)
+        (List.indexedMap (viewAnswer answered) answers)
 
 
-viewAnswer : Model.Answered -> Model.Answer -> Html Msg
-viewAnswer answered answer =
+viewAnswer : Model.Answered -> Int -> Model.Answer -> Html Msg
+viewAnswer answered id answer =
     let
         class_ =
             case answered of
-                Model.Already i ->
+                Model.Already selected ->
                     if answer.correct == True then
                         " success"
 
-                    else if answer.id == i then
+                    else if id == selected then
                         " fail"
 
                     else
@@ -130,8 +130,8 @@ viewAnswer answered answer =
 
         comment =
             case answered of
-                Model.Already i ->
-                    if answer.id == i then
+                Model.Already selected ->
+                    if id == selected then
                         if answer.correct == True then
                             [ div [ class "comment" ] [ text "Правильно" ] ]
 
@@ -150,7 +150,7 @@ viewAnswer answered answer =
                     []
 
                 Model.NotYet ->
-                    [ onClick <| Quiz <| Answer answer.id ]
+                    [ onClick <| Quiz <| Answer id ]
     in
     div (class ("answer" ++ class_) :: onClick_)
         ([ div [] (textHtml answer.text) ] ++ comment)
