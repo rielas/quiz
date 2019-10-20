@@ -37,8 +37,8 @@ update msg model =
                 View.Next ->
                     ( Model.nextQuestion model, Cmd.none )
 
-                View.Answer ->
-                    ( Model.answerQuestion model, Cmd.none )
+                View.Answer answer ->
+                    ( Model.answerQuestion answer model, Cmd.none )
 
 
 

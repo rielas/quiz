@@ -30,7 +30,7 @@ type Msg
 
 type QuizMsg
     = Next
-    | Answer
+    | Answer Int
 
 
 
@@ -81,8 +81,7 @@ viewQuiz quiz =
                 [ div
                     [ class "html-wrapper" ]
                     (textHtml quiz.currentQuestion.description)
-                , viewAnswers quiz.answered quiz.currentQuestion.correct <|
-                    quiz.currentQuestion.incorrect
+                , viewAnswers quiz.answered quiz.currentQuestion.answers
                 ]
             ]
     in
@@ -104,33 +103,57 @@ viewQuiz quiz =
         )
 
 
-viewAnswers : Model.Answered -> String -> List String -> Html Msg
-viewAnswers answered correct incorrect =
+viewAnswers : Model.Answered -> List Model.Answer -> Html Msg
+viewAnswers answered answers =
     div
         [ class "answers" ]
-        (List.map
-            (viewAnswer answered)
-            (correct :: incorrect)
-        )
+        (List.map (viewAnswer answered) answers)
 
 
-viewAnswer : Model.Answered -> String -> Html Msg
+viewAnswer : Model.Answered -> Model.Answer -> Html Msg
 viewAnswer answered answer =
     let
         class_ =
-            "answer"
-                ++ (case answered of
-                        Model.Success ->
-                            " success"
+            case answered of
+                Model.Already i ->
+                    if answer.correct == True then
+                        " success"
 
-                        Model.Fail ->
-                            " fail"
+                    else if answer.id == i then
+                        " fail"
 
-                        _ ->
-                            ""
-                   )
+                    else
+                        " answered"
+
+                _ ->
+                    ""
+
+        comment =
+            case answered of
+                Model.Already i ->
+                    if answer.id == i then
+                        if answer.correct == True then
+                            [ div [ class "comment" ] [ text "Правильно" ] ]
+
+                        else
+                            [ div [ class "comment" ] [ text "Ошибка" ] ]
+
+                    else
+                        []
+
+                _ ->
+                    []
+
+        onClick_ =
+            case answered of
+                Model.Already _ ->
+                    []
+
+                Model.NotYet ->
+                    [ onClick <| Quiz <| Answer answer.id ]
     in
-    div [ class class_, onClick <| Quiz Answer ] [ div [] (textHtml answer) ]
+    div (class ("answer" ++ class_) :: onClick_)
+        ([ div [] (textHtml answer.text) ] ++ comment)
 
 
 viewFinish =

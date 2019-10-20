@@ -103,6 +103,14 @@ button {
     box-shadow: rgb(233, 69, 34) -4px 0px;
 }
 
+.success {
+    box-shadow: green -4px 0px;
+}
+
+.answered {
+    box-shadow: grey -4px 0px;
+}
+
 .answer:first-child {
     border-radius: 8px 8px 0px 0px;
 }
@@ -110,4 +118,9 @@ button {
 .answer:last-child {
     border-radius: 0px 0px 8px 8px;
     border-bottom: none;
+}
+
+.comment {
+    margin-top: 6px;
+    padding-right: 5px;
 }
