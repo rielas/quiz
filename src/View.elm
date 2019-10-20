@@ -81,9 +81,7 @@ viewQuiz quiz =
                 [ div
                     [ class "html-wrapper" ]
                     (textHtml quiz.currentQuestion.description)
-                , viewAnswers quiz.answered
-                    quiz.currentQuestion.answers
-                    quiz.currentQuestion.fail
+                , viewAnswers quiz.answered quiz.currentQuestion
                 ]
             ]
     in
@@ -105,15 +103,15 @@ viewQuiz quiz =
         )
 
 
-viewAnswers : Model.Answered -> List Model.Answer -> String -> Html Msg
-viewAnswers answered answers fail =
+viewAnswers : Model.Answered -> Model.Question -> Html Msg
+viewAnswers answered question =
     div
         [ class "answers" ]
-        (List.indexedMap (viewAnswer answered fail) answers)
+        (List.indexedMap (viewAnswer answered question) question.answers)
 
 
-viewAnswer : Model.Answered -> String -> Int -> Model.Answer -> Html Msg
-viewAnswer answered fail id answer =
+viewAnswer : Model.Answered -> Model.Question -> Int -> Model.Answer -> Html Msg
+viewAnswer answered question id answer =
     let
         class_ =
             case answered of
@@ -135,10 +133,10 @@ viewAnswer answered fail id answer =
                 Model.Already selected ->
                     if id == selected then
                         if answer.correct == True then
-                            [ div [ class "comment" ] [ text "Правильно" ] ]
+                            [ div [ class "comment" ] (textHtml question.success) ]
 
                         else
-                            [ div [ class "comment" ] (textHtml fail) ]
+                            [ div [ class "comment" ] (textHtml question.fail) ]
 
                     else
                         []
