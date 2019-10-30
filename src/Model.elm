@@ -1,6 +1,7 @@
 module Model exposing (Answer, Answered(..), Model, Question, QuizModel, State(..), answerQuestion, emptyModel, nextQuestion, questionsSize)
 
 import Array
+import Json.Decode as Json
 
 
 type Answered
@@ -128,6 +129,7 @@ questionsSize =
     List.length questions
 
 
+questions : List Question
 questions =
     [ { description = "<p>«Это проект „Намедни. Наша эра“. События, люди, явления, определившие образ жизни, то, без чего нас невозможно представить, еще труднее&nbsp;— понять».</p><p>Когда произошло событие, о&nbsp;котором говорит Леонид Парфенов?</p><figure><div><div><div><iframe src=\"//coub.com/embed/22xuqr?muted=false&amp;autostart=false&amp;originalSize=false&amp;startWithHD=false&amp;disable_changer=true\" allowfullscreen=\"\" frameborder=\"0\" width=\"640\" height=\"360\" allow=\"autoplay\"></iframe></div></div></div></figure>"
       , answers =
@@ -157,3 +159,19 @@ questions =
       , success = "<p>Верно! «Кока-кола», «Фанта» и&nbsp;«Пепси-кола» выпускались в&nbsp;цехах Очаковского завода. «Колу» продавали только на&nbsp;территории спортивных сооружений, а&nbsp;«Фанту» и&nbsp;«Пепси» люди могли купить в&nbsp;магазинах. Первые бутылки «Пепси» появились еще в&nbsp;1973 году, но&nbsp;массово все виды газировок стали продавать в&nbsp;1979-м. Тогда напиток «Пепси» появился в&nbsp;73 киосках Москвы, а&nbsp;спонсором <a href=\"https://www.youtube.com/watch?v=bM3Nr8rw8sk\" target=\"_blank\" rel=\"noopener\">Олимпиады-1980</a> в&nbsp;Москве стала Coca-Cola Company.</p>"
       }
     ]
+
+
+answerDecoder : Json.Decoder Answer
+answerDecoder =
+    Json.map2 Answer
+        (Json.field "text" Json.string)
+        (Json.field "correct" Json.bool)
+
+
+questionDecoder : Json.Decoder Question
+questionDecoder =
+    Json.map4 Question
+        (Json.field "description" Json.string)
+        (Json.field "answers" (Json.list answerDecoder))
+        (Json.field "fail" Json.string)
+        (Json.field "success" Json.string)
