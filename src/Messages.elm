@@ -1,12 +1,13 @@
 module Messages exposing (Msg(..), QuizMsg(..))
 
 import Http
+import Model
 
 
 type Msg
     = NoOp
     | Quiz QuizMsg
-    | GotText (Result Http.Error String)
+    | GotModel (Result Http.Error (List Model.Question))
     | Reset
 
 

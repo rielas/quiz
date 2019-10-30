@@ -1,4 +1,4 @@
-module Model exposing (Answer, Answered(..), Model, Question, QuizModel, State(..), answerQuestion, emptyModel, nextQuestion, questionsSize)
+module Model exposing (Answer, Answered(..), Model, Question, QuizModel, State(..), answerQuestion, emptyModel, nextQuestion, questionDecoder, questionsSize)
 
 import Array
 import Json.Decode as Json
