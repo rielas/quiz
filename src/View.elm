@@ -1,10 +1,11 @@
-module View exposing (Msg(..), QuizMsg(..), view)
+module View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Html.Parser
 import Html.Parser.Util
+import Messages as Msg
 import Model
 
 
@@ -18,26 +19,7 @@ textHtml t =
             []
 
 
-
--- UPDATE
-
-
-type Msg
-    = NoOp
-    | Quiz QuizMsg
-    | Reset
-
-
-type QuizMsg
-    = Next
-    | Answer Int
-
-
-
--- VIEW
-
-
-view : Model.Model -> Html Msg
+view : Model.Model -> Html Msg.Msg
 view model =
     div
         [ class "game-wrapper" ]
@@ -50,7 +32,7 @@ view model =
         ]
 
 
-viewHeader : Int -> Html Msg
+viewHeader : Int -> Html Msg.Msg
 viewHeader left =
     let
         size =
@@ -71,7 +53,7 @@ viewHeader left =
         ]
 
 
-viewQuiz : Model.QuizModel -> Html Msg
+viewQuiz : Model.QuizModel -> Html Msg.Msg
 viewQuiz quiz =
     let
         sections =
@@ -95,7 +77,7 @@ viewQuiz quiz =
                     ++ [ div [ class "button-wrapper" ]
                             [ button
                                 [ class "button"
-                                , onClick <| Quiz Next
+                                , onClick <| Msg.Quiz Msg.Next
                                 ]
                                 [ text "Дальше" ]
                             ]
@@ -103,14 +85,19 @@ viewQuiz quiz =
         )
 
 
-viewAnswers : Model.Answered -> Model.Question -> Html Msg
+viewAnswers : Model.Answered -> Model.Question -> Html Msg.Msg
 viewAnswers answered question =
     div
         [ class "answers" ]
         (List.indexedMap (viewAnswer answered question) question.answers)
 
 
-viewAnswer : Model.Answered -> Model.Question -> Int -> Model.Answer -> Html Msg
+viewAnswer :
+    Model.Answered
+    -> Model.Question
+    -> Int
+    -> Model.Answer
+    -> Html Msg.Msg
 viewAnswer answered question id answer =
     let
         class_ =
@@ -150,7 +137,7 @@ viewAnswer answered question id answer =
                     []
 
                 Model.NotYet ->
-                    [ onClick <| Quiz <| Answer id ]
+                    [ onClick <| Msg.Quiz <| Msg.Answer id ]
     in
     div (class ("answer" ++ class_) :: onClick_)
         ([ div [ class "answer-container" ] (textHtml answer.text) ] ++ comment)

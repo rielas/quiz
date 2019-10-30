@@ -1,6 +1,7 @@
 module Main exposing (init, main, subscriptions, update)
 
 import Browser
+import Messages as Msg
 import Model
 import View
 
@@ -14,30 +15,30 @@ main =
         }
 
 
-init : () -> ( Model.Model, Cmd View.Msg )
+init : () -> ( Model.Model, Cmd Msg.Msg )
 init _ =
     ( Model.emptyModel
     , Cmd.none
     )
 
 
-update : View.Msg -> Model.Model -> ( Model.Model, Cmd View.Msg )
+update : Msg.Msg -> Model.Model -> ( Model.Model, Cmd Msg.Msg )
 update msg model =
     case msg of
-        View.NoOp ->
+        Msg.NoOp ->
             ( model, Cmd.none )
 
-        View.Reset ->
+        Msg.Reset ->
             ( Model.emptyModel
             , Cmd.none
             )
 
-        View.Quiz quiz ->
+        Msg.Quiz quiz ->
             case quiz of
-                View.Next ->
+                Msg.Next ->
                     ( Model.nextQuestion model, Cmd.none )
 
-                View.Answer answer ->
+                Msg.Answer answer ->
                     ( Model.answerQuestion answer model, Cmd.none )
 
 
@@ -45,6 +46,6 @@ update msg model =
 -- SUBSCRIPTIONS
 
 
-subscriptions : Model.Model -> Sub View.Msg
+subscriptions : Model.Model -> Sub Msg.Msg
 subscriptions model =
     Sub.none
