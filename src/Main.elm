@@ -18,17 +18,17 @@ main =
         }
 
 
-init : () -> ( Model.Model, Cmd Msg.Msg )
-init _ =
+init : String -> ( Model.Model, Cmd Msg.Msg )
+init address =
     ( Model.emptyModel
-    , getPublicOpinion
+    , getQuestions address
     )
 
 
-getPublicOpinion : Cmd Msg.Msg
-getPublicOpinion =
+getQuestions : String -> Cmd Msg.Msg
+getQuestions address =
     Http.get
-        { url = "http://localhost:3000/quiz.json"
+        { url = address
         , expect =
             Http.expectJson Msg.GotModel
                 (Json.list Model.questionDecoder)
