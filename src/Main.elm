@@ -59,7 +59,9 @@ update msg model =
                 _ =
                     log "questions" questions
             in
-            ( model, Cmd.none )
+            ( Model.setQuestions model <| Result.withDefault [] questions
+            , Cmd.none
+            )
 
 
 

@@ -24,22 +24,22 @@ view model =
     div
         [ class "game-wrapper" ]
         [ case model.state of
+            Model.Start ->
+                viewStart
+
             Model.Quiz quiz ->
-                viewQuiz quiz
+                viewQuiz quiz model.questionsNumber
 
             Model.Finish ->
-                viewFinish model.correctAnswers
+                viewFinish model.questionsNumber model.correctAnswers
         ]
 
 
-viewHeader : Int -> Html Msg.Msg
-viewHeader left =
+viewHeader : Int -> Int -> Html Msg.Msg
+viewHeader questionsNumber left =
     let
-        size =
-            Model.questionsSize
-
         n =
-            size - left
+            questionsNumber - left
     in
     div
         [ class "header" ]
@@ -47,17 +47,17 @@ viewHeader left =
             [ text
                 (String.fromInt n
                     ++ "/"
-                    ++ String.fromInt Model.questionsSize
+                    ++ String.fromInt questionsNumber
                 )
             ]
         ]
 
 
-viewQuiz : Model.QuizModel -> Html Msg.Msg
-viewQuiz quiz =
+viewQuiz : Model.QuizModel -> Int -> Html Msg.Msg
+viewQuiz quiz questionsNumber =
     let
         sections =
-            [ viewHeader <| List.length quiz.remainingQuestions
+            [ viewHeader questionsNumber <| List.length quiz.remainingQuestions
             , div
                 [ class "card-wrapper" ]
                 [ div
@@ -140,10 +140,12 @@ viewAnswer answered question id answer =
                     [ onClick <| Msg.Quiz <| Msg.Answer id ]
     in
     div (class ("answer" ++ class_) :: onClick_)
-        ([ div [ class "answer-container" ] (textHtml answer.text) ] ++ comment)
+        ([ div [ class "answer-container" ] (textHtml answer.text) ]
+            ++ comment
+        )
 
 
-viewFinish correctAnswers =
+viewFinish questionsNumber correctAnswers =
     div []
         [ div
             []
@@ -152,6 +154,14 @@ viewFinish correctAnswers =
             [ text <|
                 String.fromInt correctAnswers
                     ++ " from "
-                    ++ String.fromInt Model.questionsSize
+                    ++ String.fromInt questionsNumber
             ]
+        ]
+
+
+viewStart =
+    div []
+        [ div
+            []
+            [ text "Старт" ]
         ]
