@@ -30,16 +30,17 @@ getQuestions address =
     Http.get
         { url = address
         , expect =
-            Http.expectJson Msg.GotModel
-                (Json.list Model.questionDecoder)
+            Http.expectJson Msg.GotModel Model.settingsDecoder
         }
 
 
 update : Msg.Msg -> Model.Model -> ( Model.Model, Cmd Msg.Msg )
 update msg model =
     case msg of
-        Msg.NoOp ->
-            ( model, Cmd.none )
+        Msg.StartQuiz ->
+            ( Model.startQuiz model
+            , Cmd.none
+            )
 
         Msg.Reset ->
             ( Model.emptyModel
@@ -54,12 +55,17 @@ update msg model =
                 Msg.Answer answer ->
                     ( Model.answerQuestion answer model, Cmd.none )
 
-        Msg.GotModel questions ->
+        Msg.GotModel settings ->
             let
-                _ =
-                    log "questions" questions
+                settings_ =
+                    Result.withDefault { questions = [], startPage = "Старт" }
+                        settings
             in
-            ( Model.setQuestions model <| Result.withDefault [] questions
+            ( { model
+                | remainingQuestions = settings_.questions
+                , startPage = settings_.startPage
+                , state = Model.Start
+              }
             , Cmd.none
             )
 

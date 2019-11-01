@@ -24,19 +24,24 @@ view model =
     div
         [ class "game-wrapper" ]
         [ case model.state of
+            Model.Init ->
+                div [] [ text "Гружу вопросы" ]
+
             Model.Start ->
-                viewStart
+                viewStart model
 
             Model.Quiz quiz ->
-                viewQuiz quiz model.questionsNumber
+                viewQuiz quiz
+                    (List.length model.remainingQuestions)
+                    model.questionsSize
 
             Model.Finish ->
-                viewFinish model.questionsNumber model.correctAnswers
+                viewFinish model.questionsSize model.correctAnswers
         ]
 
 
 viewHeader : Int -> Int -> Html Msg.Msg
-viewHeader questionsNumber left =
+viewHeader left questionsNumber =
     let
         n =
             questionsNumber - left
@@ -53,11 +58,11 @@ viewHeader questionsNumber left =
         ]
 
 
-viewQuiz : Model.QuizModel -> Int -> Html Msg.Msg
-viewQuiz quiz questionsNumber =
+viewQuiz : Model.QuizModel -> Int -> Int -> Html Msg.Msg
+viewQuiz quiz questionsLeft questionsNumber =
     let
         sections =
-            [ viewHeader questionsNumber <| List.length quiz.remainingQuestions
+            [ viewHeader questionsLeft questionsNumber
             , div
                 [ class "card-wrapper" ]
                 [ div
@@ -159,9 +164,10 @@ viewFinish questionsNumber correctAnswers =
         ]
 
 
-viewStart =
+viewStart model =
     div []
-        [ div
-            []
-            [ text "Старт" ]
+        [ div [] (textHtml model.startPage)
+        , div []
+            [ button [ onClick Msg.StartQuiz ] [ text "Пройти тест" ]
+            ]
         ]

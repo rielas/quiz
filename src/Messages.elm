@@ -5,9 +5,9 @@ import Model
 
 
 type Msg
-    = NoOp
+    = StartQuiz
     | Quiz QuizMsg
-    | GotModel (Result Http.Error (List Model.Question))
+    | GotModel (Result Http.Error Model.Settings)
     | Reset
 
 

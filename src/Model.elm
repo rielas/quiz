@@ -1,4 +1,4 @@
-module Model exposing (Answer, Answered(..), Model, Question, QuizModel, State(..), answerQuestion, emptyModel, nextQuestion, questionDecoder, setQuestions)
+module Model exposing (Answer, Answered(..), Model, Question, QuizModel, Settings, State(..), answerQuestion, emptyModel, nextQuestion, settingsDecoder, startQuiz)
 
 import Array
 import Json.Decode as Json
@@ -11,13 +11,13 @@ type Answered
 
 type alias QuizModel =
     { currentQuestion : Question
-    , remainingQuestions : List Question
     , answered : Answered
     }
 
 
 type State
-    = Start
+    = Init
+    | Start
     | Quiz QuizModel
     | Finish
 
@@ -25,7 +25,15 @@ type State
 type alias Model =
     { state : State
     , correctAnswers : Int
-    , questionsNumber : Int
+    , questionsSize : Int
+    , startPage : String
+    , remainingQuestions : List Question
+    }
+
+
+type alias Settings =
+    { questions : List Question
+    , startPage : String
     }
 
 
@@ -43,53 +51,53 @@ type alias Question =
     }
 
 
-setQuestions : Model -> List Question -> Model
-setQuestions model questions =
+startQuiz : Model -> Model
+startQuiz model =
     let
-        state_ =
-            case questions of
-                question :: rest ->
+        size =
+            List.length model.remainingQuestions
+    in
+    case model.remainingQuestions of
+        question :: rest ->
+            { model
+                | state =
                     Quiz
                         { currentQuestion = question
-                        , remainingQuestions = rest
                         , answered = NotYet
                         }
+                , remainingQuestions = rest
+                , questionsSize = size
+            }
 
-                [] ->
-                    Finish
-    in
-    { state = state_
-    , correctAnswers = 0
-    , questionsNumber = List.length questions
-    }
+        [] ->
+            { model | state = Finish }
 
 
 emptyModel : Model
 emptyModel =
-    { state = Start, correctAnswers = 0, questionsNumber = 0 }
+    { state = Init
+    , correctAnswers = 0
+    , questionsSize = 0
+    , startPage = ""
+    , remainingQuestions = []
+    }
 
 
 nextQuestion : Model -> Model
 nextQuestion model =
-    let
-        state_ =
-            case model.state of
-                Quiz quiz ->
-                    case quiz.remainingQuestions of
-                        question :: rest ->
-                            Quiz
-                                { currentQuestion = question
-                                , remainingQuestions = rest
-                                , answered = NotYet
-                                }
+    case model.remainingQuestions of
+        question :: rest ->
+            { model
+                | state =
+                    Quiz
+                        { currentQuestion = question
+                        , answered = NotYet
+                        }
+                , remainingQuestions = rest
+            }
 
-                        _ ->
-                            Finish
-
-                _ ->
-                    Finish
-    in
-    { model | state = state_ }
+        _ ->
+            { model | state = Finish }
 
 
 isCorrect id quiz =
@@ -149,3 +157,10 @@ questionDecoder =
         (Json.field "answers" (Json.list answerDecoder))
         (Json.field "fail" Json.string)
         (Json.field "success" Json.string)
+
+
+settingsDecoder : Json.Decoder Settings
+settingsDecoder =
+    Json.map2 Settings
+        (Json.field "questions" <| Json.list questionDecoder)
+        (Json.field "startPage" Json.string)
