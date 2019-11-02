@@ -2,8 +2,8 @@
 
 set -e
 
-js="main.js"
-min="main.min.js"
+js="build/main.js"
+min="build/main.min.js"
 
 elm make --optimize --output=$js $@
 
