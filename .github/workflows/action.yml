@@ -1,0 +1,14 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    container:
+      image: anatol1988/elm:0.19.1
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Check elm version
+      run: |
+        .github/optimize.sh src/Main.elm;
