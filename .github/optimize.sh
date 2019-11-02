@@ -3,7 +3,7 @@
 set -e
 
 js="build/main.js"
-min="build/main.min.js"
+min="build/min.js"
 
 elm make --optimize --output=$js $@
 

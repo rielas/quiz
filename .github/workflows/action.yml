@@ -12,10 +12,15 @@ jobs:
     - name: Build js from elm sources
       run: |
         .github/optimize.sh src/Main.elm;
-    - name: Build and Deploy
-      uses: JamesIves/github-pages-deploy-action@master
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BASE_BRANCH: master
-        BRANCH: gh-pages
-        FOLDER: build
+    - name: Deploy pages
+      run: |
+        ACCESS_TOKEN=${{secrets.ACCESS_TOKEN}}
+        apk add git
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git clone https://${ACCESS_TOKEN:-"x-access-token:$GITHUB_TOKEN"}@github.com/anatol-1988/quiz.git -b gh-pages
+        cp -a build/. quiz/
+        cd quiz
+        git add .
+        git commit -m "Deploying" --quiet
+        git push origin gh-pages
