@@ -1,5 +1,6 @@
 module View exposing (view)
 
+import Debug exposing (log)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -14,6 +15,49 @@ textHtml t =
     case Html.Parser.run t of
         Ok nodes ->
             Html.Parser.Util.toVirtualDom nodes
+
+        Err _ ->
+            []
+
+
+setDiv : String -> String -> List Html.Parser.Node -> List Html.Parser.Node
+setDiv id text nodes =
+    let
+        text_ =
+            Result.withDefault [] (Html.Parser.run text)
+
+        f =
+            \node ->
+                case node of
+                    Html.Parser.Element tag attrs childs ->
+                        if
+                            tag
+                                == "div"
+                                && List.member ( "id", id ) attrs
+                                == True
+                        then
+                            Html.Parser.Element tag attrs text_
+
+                        else
+                            Html.Parser.Element tag attrs <|
+                                setDiv id text childs
+
+                    Html.Parser.Text _ ->
+                        log "node" node
+
+                    _ ->
+                        node
+    in
+    List.map f nodes
+
+
+setFields : String -> List (Html.Html msg)
+setFields t =
+    case Html.Parser.run t of
+        Ok nodes ->
+            setDiv "score" "1/11" nodes
+                |> setDiv "description" "<div class=\"result\">Поколение X</div><div class=\"desc\">Вы знаете, что происходило во второй половине XX века</div>"
+                |> Html.Parser.Util.toVirtualDom
 
         Err _ ->
             []
@@ -151,7 +195,7 @@ viewAnswer answered question id answer =
 
 
 viewFinish model =
-    div [] (textHtml model.finishPage)
+    div [] (setFields model.finishPage)
 
 
 viewStart model =
