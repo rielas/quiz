@@ -52,17 +52,34 @@
         ],
         "fail": "<p>Нет, это довольно поздно! «Кока-кола», «Фанта» и&nbsp;«Пепси-кола» выпускались в&nbsp;цехах Очаковского завода. «Колу» продавали только на&nbsp;территории спортивных сооружений, а&nbsp;«Фанту» и&nbsp;«Пепси» люди могли купить в&nbsp;магазинах. Первые бутылки «Пепси» появились еще в&nbsp;1973 году, но&nbsp;массово все виды газировок стали продавать в&nbsp;1979-м. Тогда напиток «Пепси» появился в&nbsp;73 киосках Москвы, а&nbsp;спонсором <a href=\"https://www.youtube.com/watch?v=bM3Nr8rw8sk\" target=\"_blank\" rel=\"noopener\">Олимпиады-1980</a> в&nbsp;Москве стала Coca-Cola Company.</p>",
         "success": "<p>Верно! «Кока-кола», «Фанта» и&nbsp;«Пепси-кола» выпускались в&nbsp;цехах Очаковского завода. «Колу» продавали только на&nbsp;территории спортивных сооружений, а&nbsp;«Фанту» и&nbsp;«Пепси» люди могли купить в&nbsp;магазинах. Первые бутылки «Пепси» появились еще в&nbsp;1973 году, но&nbsp;массово все виды газировок стали продавать в&nbsp;1979-м. Тогда напиток «Пепси» появился в&nbsp;73 киосках Москвы, а&nbsp;спонсором <a href=\"https://www.youtube.com/watch?v=bM3Nr8rw8sk\" target=\"_blank\" rel=\"noopener\">Олимпиады-1980</a> в&nbsp;Москве стала Coca-Cola Company.</p>"
+    }, {
+        "description": "<p>Карибский кризис. Помните, когда он&nbsp;произошел?</p><figure><div><div><div><iframe src=\"//coub.com/embed/22xtla?muted=false&amp;autostart=false&amp;originalSize=false&amp;startWithHD=false&amp;disable_changer=true\" allowfullscreen=\"\" frameborder=\"0\" width=\"100%\" height=\"300\" allow=\"autoplay\"></iframe></div></div></div></figure>",
+        "answers": [{
+                "text": "Хм, в 1966-м?",
+                "correct": false
+            },
+            {
+                "text": "Хм, в 1962-м?",
+                "correct": true
+            },
+            {
+                "text": "Хм, в 1958-м?",
+                "correct": false
+            }
+        ],
+        "fail": "<p>Нет! США разместили ядерное оружие в&nbsp;Турции в&nbsp;1961 году, а&nbsp;Карибский кризис случился <a href=\"https://www.youtube.com/watch?v=9EJ5DTc1Xlg\" target=\"_blank\" rel=\"noopener\">в&nbsp;1962</a> году, когда СССР тайно разместил свои вооруженные силы на&nbsp;Кубе.</p>",
+        "success": "<p>Верно! США разместили ядерное оружие в&nbsp;Турции в&nbsp;1961 году, а&nbsp;Карибский кризис случился <a href=\"https://www.youtube.com/watch?v=9EJ5DTc1Xlg\" target=\"_blank\" rel=\"noopener\">в&nbsp;1962</a> году, когда СССР тайно разместил свои вооруженные силы на&nbsp;Кубе.</p>"
     }],
     "scores": [{
             "min": 0,
             "description": "<div class=\"result\">Миллениал!</div><div class=\"desc\">Вы&nbsp;что-то слышали о&nbsp;событиях второй половины XX&nbsp;века</div>"
         },
         {
-            "min": 4,
+            "min": 1,
             "description": "<div class=\"result\">Поколение X</div><div class=\"desc\">Вы знаете, что происходило во второй половине XX века</div>"
         },
         {
-            "min": 8,
+            "min": 3,
             "description": "<div class=\"result\">Леонид Парфенов!</div><div class=\"desc\">Вы&nbsp;смотрели все выпуски программы «Намедни»</div>"
         }
     ]
