@@ -1,6 +1,5 @@
 module View exposing (view)
 
-import Debug exposing (log)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -43,7 +42,7 @@ setDiv id text nodes =
                                 setDiv id text childs
 
                     Html.Parser.Text _ ->
-                        log "node" node
+                        node
 
                     _ ->
                         node
@@ -200,9 +199,14 @@ viewFinish model =
             String.fromInt model.correctAnswers
                 ++ "/"
                 ++ String.fromInt model.questionsSize
+
+        description =
+            Maybe.map (\s -> s.description)
+                (Model.getScore model.scores model.correctAnswers)
     in
     div [] <|
-        setFields model.finishPage score "<div class=\"result\">Поколение X</div><div class=\"desc\">Вы знаете, что происходило во второй половине XX века</div>"
+        setFields model.finishPage score <|
+            Maybe.withDefault "" description
 
 
 viewStart model =

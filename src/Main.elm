@@ -1,7 +1,6 @@
 module Main exposing (init, main, subscriptions, update)
 
 import Browser
-import Debug exposing (log)
 import Http
 import Json.Decode as Json
 import Messages as Msg
@@ -62,7 +61,7 @@ update msg model =
                         { questions = []
                         , startPage = ""
                         , finishPage = ""
-                        , score = []
+                        , scores = []
                         }
                         settings
             in
@@ -70,6 +69,7 @@ update msg model =
                 | remainingQuestions = settings_.questions
                 , startPage = settings_.startPage
                 , finishPage = settings_.finishPage
+                , scores = settings_.scores
                 , state = Model.Start
               }
             , Cmd.none
