@@ -36,7 +36,7 @@ view model =
                     model.questionsSize
 
             Model.Finish ->
-                viewFinish model.questionsSize model.correctAnswers
+                viewFinish model
         ]
 
 
@@ -150,18 +150,8 @@ viewAnswer answered question id answer =
         )
 
 
-viewFinish questionsNumber correctAnswers =
-    div []
-        [ div
-            []
-            [ text "Конец" ]
-        , div []
-            [ text <|
-                String.fromInt correctAnswers
-                    ++ " from "
-                    ++ String.fromInt questionsNumber
-            ]
-        ]
+viewFinish model =
+    div [] (textHtml model.finishPage)
 
 
 viewStart model =

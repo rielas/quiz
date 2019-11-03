@@ -58,12 +58,17 @@ update msg model =
         Msg.GotModel settings ->
             let
                 settings_ =
-                    Result.withDefault { questions = [], startPage = "Старт" }
+                    Result.withDefault
+                        { questions = []
+                        , startPage = ""
+                        , finishPage = ""
+                        }
                         settings
             in
             ( { model
                 | remainingQuestions = settings_.questions
                 , startPage = settings_.startPage
+                , finishPage = settings_.finishPage
                 , state = Model.Start
               }
             , Cmd.none

@@ -27,6 +27,7 @@ type alias Model =
     , correctAnswers : Int
     , questionsSize : Int
     , startPage : String
+    , finishPage : String
     , remainingQuestions : List Question
     }
 
@@ -34,6 +35,7 @@ type alias Model =
 type alias Settings =
     { questions : List Question
     , startPage : String
+    , finishPage : String
     }
 
 
@@ -79,6 +81,7 @@ emptyModel =
     , correctAnswers = 0
     , questionsSize = 0
     , startPage = ""
+    , finishPage = ""
     , remainingQuestions = []
     }
 
@@ -161,6 +164,7 @@ questionDecoder =
 
 settingsDecoder : Json.Decoder Settings
 settingsDecoder =
-    Json.map2 Settings
+    Json.map3 Settings
         (Json.field "questions" <| Json.list questionDecoder)
         (Json.field "startPage" Json.string)
+        (Json.field "finishPage" Json.string)
