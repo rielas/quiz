@@ -1,7 +1,8 @@
-module Model exposing (Answer, Answered(..), Model, Question, QuizModel, Settings, State(..), answerQuestion, emptyModel, nextQuestion, settingsDecoder, startQuiz)
+module Model exposing (Answer, Answered(..), Model, Question, QuizModel, Settings, State(..), answerQuestion, emptyModel, getScore, nextQuestion, settingsDecoder, startQuiz)
 
 import Array
 import Json.Decode as Json
+import List.Extra
 
 
 type Answered
@@ -29,7 +30,7 @@ type alias Model =
     , startPage : String
     , finishPage : String
     , remainingQuestions : List Question
-    , score : List Score
+    , scores : List Score
     }
 
 
@@ -37,7 +38,7 @@ type alias Settings =
     { questions : List Question
     , startPage : String
     , finishPage : String
-    , score : List Score
+    , scores : List Score
     }
 
 
@@ -91,7 +92,7 @@ emptyModel =
     , startPage = ""
     , finishPage = ""
     , remainingQuestions = []
-    , score = []
+    , scores = []
     }
 
 
@@ -155,6 +156,18 @@ answerQuestion id model =
     { model | state = state_, correctAnswers = correctAnswers }
 
 
+getScore : List Score -> Int -> Maybe Score
+getScore scores points =
+    let
+        sorted =
+            List.sortBy .min scores
+
+        lessorequal =
+            List.Extra.takeWhile (\score -> score.min <= points) sorted
+    in
+    List.Extra.last lessorequal
+
+
 answerDecoder : Json.Decoder Answer
 answerDecoder =
     Json.map2 Answer
@@ -184,4 +197,4 @@ settingsDecoder =
         (Json.field "questions" <| Json.list questionDecoder)
         (Json.field "startPage" Json.string)
         (Json.field "finishPage" Json.string)
-        (Json.field "score" <| Json.list scoreDecoder)
+        (Json.field "scores" <| Json.list scoreDecoder)

@@ -12,6 +12,7 @@
             "elm/http": "2.0.0",
             "elm/json": "1.1.2",
             "elm/random": "1.0.0",
+            "elm-community/list-extra": "8.2.2",
             "hecrj/html-parser": "2.3.4"
         },
         "indirect": {
