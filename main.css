@@ -1,0 +1,136 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 14px Helvetica, Arial, sans-serif;
+    line-height: 1.4em;
+    background: #f5f5f5;
+    color: #4d4d4d;
+    min-width: 230px;
+    max-width: 550px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+.button-wrapper {
+    width: 100%;
+    margin-top: 25px;
+}
+
+button {
+    width: 100%;
+    height: 42px;
+    padding: 7px 18px 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 22px;
+    background: #b88b58;
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease-out;
+    text-align: center;
+    color: #fff;
+    border-width: 0;
+    outline: none;
+}
+
+.header {
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.questions-count {
+    font-family: "Arial";
+    font-size: 20px;
+    color: rgb(178, 178, 178);
+    letter-spacing: 0px;
+    text-align: left;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+.html-wrapper {
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 100%;
+    border-top: none;
+}
+
+.card-wrapper {
+    width: 100%;
+    font-family: "Arial", serif;
+}
+
+.answers {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: "Arial", sans-serif;
+    background: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(230, 230, 230);
+    border-image: initial;
+    border-radius: 8px;
+}
+
+.answer {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0px;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    border-bottom: 1px solid rgb(230, 230, 230);
+    padding: 10px 74px 10px 12px;
+}
+
+.fail {
+    box-shadow: rgb(233, 69, 34) -4px 0px;
+}
+
+.success {
+    box-shadow: green -4px 0px;
+}
+
+.answered {
+    box-shadow: grey -4px 0px;
+}
+
+.answer:first-child {
+    border-radius: 8px 8px 0px 0px;
+}
+
+.answer:last-child {
+    border-radius: 0px 0px 8px 8px;
+    border-bottom: none;
+}
+
+.answer-container {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0px;
+}
+
+.comment {
+    margin-top: 6px;
+    padding-right: 5px;
+}

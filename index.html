@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <link rel="stylesheet" href="main.css">
+  <script src="min.js"></script>
+</head>
+
+<body>
+  <div id="elm"></div>
+  <script>
+  var app = Elm.Main.init({
+    node: document.getElementById('elm'),
+    flags: "quiz.json"
+  });
+  </script>
+</body>
+</html>
