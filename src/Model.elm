@@ -29,6 +29,7 @@ type alias Model =
     , startPage : String
     , finishPage : String
     , remainingQuestions : List Question
+    , score : List Score
     }
 
 
@@ -36,6 +37,7 @@ type alias Settings =
     { questions : List Question
     , startPage : String
     , finishPage : String
+    , score : List Score
     }
 
 
@@ -50,6 +52,12 @@ type alias Question =
     , answers : List Answer
     , fail : String
     , success : String
+    }
+
+
+type alias Score =
+    { min : Int
+    , description : String
     }
 
 
@@ -83,6 +91,7 @@ emptyModel =
     , startPage = ""
     , finishPage = ""
     , remainingQuestions = []
+    , score = []
     }
 
 
@@ -162,9 +171,17 @@ questionDecoder =
         (Json.field "success" Json.string)
 
 
+scoreDecoder : Json.Decoder Score
+scoreDecoder =
+    Json.map2 Score
+        (Json.field "min" Json.int)
+        (Json.field "description" Json.string)
+
+
 settingsDecoder : Json.Decoder Settings
 settingsDecoder =
-    Json.map3 Settings
+    Json.map4 Settings
         (Json.field "questions" <| Json.list questionDecoder)
         (Json.field "startPage" Json.string)
         (Json.field "finishPage" Json.string)
+        (Json.field "score" <| Json.list scoreDecoder)

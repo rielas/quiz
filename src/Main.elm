@@ -62,6 +62,7 @@ update msg model =
                         { questions = []
                         , startPage = ""
                         , finishPage = ""
+                        , score = []
                         }
                         settings
             in

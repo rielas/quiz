@@ -51,12 +51,12 @@ setDiv id text nodes =
     List.map f nodes
 
 
-setFields : String -> List (Html.Html msg)
-setFields t =
-    case Html.Parser.run t of
+setFields : String -> String -> String -> List (Html.Html msg)
+setFields finishPage score description =
+    case Html.Parser.run finishPage of
         Ok nodes ->
-            setDiv "score" "1/11" nodes
-                |> setDiv "description" "<div class=\"result\">Поколение X</div><div class=\"desc\">Вы знаете, что происходило во второй половине XX века</div>"
+            setDiv "score" score nodes
+                |> setDiv "description" description
                 |> Html.Parser.Util.toVirtualDom
 
         Err _ ->
@@ -195,7 +195,14 @@ viewAnswer answered question id answer =
 
 
 viewFinish model =
-    div [] (setFields model.finishPage)
+    let
+        score =
+            String.fromInt model.correctAnswers
+                ++ "/"
+                ++ String.fromInt model.questionsSize
+    in
+    div [] <|
+        setFields model.finishPage score "<div class=\"result\">Поколение X</div><div class=\"desc\">Вы знаете, что происходило во второй половине XX века</div>"
 
 
 viewStart model =
