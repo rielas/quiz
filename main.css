@@ -248,7 +248,7 @@ h1 span {
     background-repeat: no-repeat;
 }
 
-.left {
+#score {
     font-size: 28px;
     line-height: 33px;
     margin-right: 10px;
@@ -258,12 +258,12 @@ h1 span {
     flex-shrink: 0;
 }
 
-.right {
+#description {
     padding-left: 12px;
     border-left: 1px solid rgb(204, 204, 204);
 }
 
-.left::selection {
+#score::selection {
     background-color: rgb(179, 212, 252);
     color: rgb(0, 0, 0);
     text-shadow: none;
@@ -278,7 +278,7 @@ h1 span {
     margin: 0px 0px 5px;
 }
 
-.description {
+.desc {
     font-weight: 400;
     font-size: 20px;
     line-height: 25px;
