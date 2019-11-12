@@ -17,10 +17,10 @@ main =
         }
 
 
-init : String -> ( Model.Model, Cmd Msg.Msg )
-init address =
+init : { quizAddr : String } -> ( Model.Model, Cmd Msg.Msg )
+init flags =
     ( Model.emptyModel
-    , getQuestions address
+    , getQuestions flags.quizAddr
     )
 
 
