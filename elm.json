@@ -12,6 +12,7 @@
             "elm/http": "2.0.0",
             "elm/json": "1.1.2",
             "elm/random": "1.0.0",
+            "elm/url": "1.0.0",
             "elm-community/list-extra": "8.2.2",
             "hecrj/html-parser": "2.3.4"
         },
@@ -20,7 +21,6 @@
             "elm/file": "1.0.5",
             "elm/parser": "1.1.0",
             "elm/time": "1.0.0",
-            "elm/url": "1.0.0",
             "elm/virtual-dom": "1.0.2",
             "rtfeldman/elm-hex": "1.0.0"
         }

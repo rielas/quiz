@@ -1,5 +1,6 @@
 module Main exposing (init, main, subscriptions, update)
 
+import Analytics
 import Browser
 import Http
 import Json.Decode as Json
@@ -52,7 +53,9 @@ update msg model =
                     ( Model.nextQuestion model, Cmd.none )
 
                 Msg.Answer answer ->
-                    ( Model.answerQuestion answer model, Cmd.none )
+                    ( Model.answerQuestion answer model
+                    , Analytics.hit "UA-151596008-1"
+                    )
 
         Msg.GotModel settings ->
             let
@@ -74,6 +77,9 @@ update msg model =
               }
             , Cmd.none
             )
+
+        Msg.Uploaded _ ->
+            ( model, Cmd.none )
 
 
 
