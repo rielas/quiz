@@ -4524,6 +4524,23 @@ var _Bitwise_shiftRightZfBy = F2(function(offset, a)
 });
 
 
+function _Url_percentEncode(string)
+{
+	return encodeURIComponent(string);
+}
+
+function _Url_percentDecode(string)
+{
+	try
+	{
+		return $elm$core$Maybe$Just(decodeURIComponent(string));
+	}
+	catch (e)
+	{
+		return $elm$core$Maybe$Nothing;
+	}
+}
+
 
 
 // STRINGS
@@ -6445,6 +6462,81 @@ var $author$project$Model$answerQuestion = F2(
 			model,
 			{I: correctAnswers, bt: state_});
 	});
+var $author$project$Messages$Uploaded = function (a) {
+	return {$: 3, a: a};
+};
+var $elm$url$Url$Builder$toQueryPair = function (_v0) {
+	var key = _v0.a;
+	var value = _v0.b;
+	return key + ('=' + value);
+};
+var $elm$url$Url$Builder$toQuery = function (parameters) {
+	if (!parameters.b) {
+		return '';
+	} else {
+		return '?' + A2(
+			$elm$core$String$join,
+			'&',
+			A2($elm$core$List$map, $elm$url$Url$Builder$toQueryPair, parameters));
+	}
+};
+var $elm$url$Url$Builder$absolute = F2(
+	function (pathSegments, parameters) {
+		return '/' + (A2($elm$core$String$join, '/', pathSegments) + $elm$url$Url$Builder$toQuery(parameters));
+	});
+var $elm$http$Http$expectBytesResponse = F2(
+	function (toMsg, toResult) {
+		return A3(
+			_Http_expect,
+			'arraybuffer',
+			_Http_toDataView,
+			A2($elm$core$Basics$composeR, toResult, toMsg));
+	});
+var $elm$http$Http$expectWhatever = function (toMsg) {
+	return A2(
+		$elm$http$Http$expectBytesResponse,
+		toMsg,
+		$elm$http$Http$resolve(
+			function (_v0) {
+				return $elm$core$Result$Ok(0);
+			}));
+};
+var $elm$http$Http$post = function (r) {
+	return $elm$http$Http$request(
+		{a6: r.a6, ba: r.ba, au: _List_Nil, bj: 'POST', bz: $elm$core$Maybe$Nothing, a$: $elm$core$Maybe$Nothing, bC: r.bC});
+};
+var $elm$url$Url$Builder$QueryParameter = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
+	});
+var $elm$url$Url$percentEncode = _Url_percentEncode;
+var $elm$url$Url$Builder$string = F2(
+	function (key, value) {
+		return A2(
+			$elm$url$Url$Builder$QueryParameter,
+			$elm$url$Url$percentEncode(key),
+			$elm$url$Url$percentEncode(value));
+	});
+var $author$project$Analytics$hit = function (tid) {
+	var url = A2(
+		$elm$url$Url$Builder$absolute,
+		_List_fromArray(
+			['collect']),
+		_List_fromArray(
+			[
+				A2($elm$url$Url$Builder$string, 'v', '1'),
+				A2($elm$url$Url$Builder$string, 't', 'pageview'),
+				A2($elm$url$Url$Builder$string, 'tid', tid),
+				A2($elm$url$Url$Builder$string, 'cid', '6860e328-507f-4727-b6bf-8f65ae60affe'),
+				A2($elm$url$Url$Builder$string, 'dp', '/home/anatol/page/1')
+			]));
+	return $elm$http$Http$post(
+		{
+			a6: $elm$http$Http$emptyBody,
+			ba: $elm$http$Http$expectWhatever($author$project$Messages$Uploaded),
+			bC: 'https://www.google-analytics.com' + url
+		});
+};
 var $author$project$Model$nextQuestion = function (model) {
 	var _v0 = model.bq;
 	if (_v0.b) {
@@ -6501,7 +6593,7 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					$author$project$Model$startQuiz(model),
 					$elm$core$Platform$Cmd$none);
-			case 3:
+			case 4:
 				return _Utils_Tuple2($author$project$Model$emptyModel, $elm$core$Platform$Cmd$none);
 			case 1:
 				var quiz = msg.a;
@@ -6513,9 +6605,9 @@ var $author$project$Main$update = F2(
 					var answer = quiz.a;
 					return _Utils_Tuple2(
 						A2($author$project$Model$answerQuestion, answer, model),
-						$elm$core$Platform$Cmd$none);
+						$author$project$Analytics$hit('UA-151596008-1'));
 				}
-			default:
+			case 2:
 				var settings = msg.a;
 				var settings_ = A2(
 					$elm$core$Result$withDefault,
@@ -6526,6 +6618,8 @@ var $author$project$Main$update = F2(
 						model,
 						{W: settings_.W, bq: settings_.aM, ab: settings_.ab, ae: settings_.ae, bt: $author$project$Model$Start}),
 					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
 var $elm$json$Json$Encode$string = _Json_wrap;
