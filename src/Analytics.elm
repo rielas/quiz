@@ -1,11 +1,13 @@
-module Analytics exposing (hit)
+module Analytics exposing (Msg, hit)
 
 import Http
-import Messages as Msg
 import Url.Builder as Url
 
 
-hit : String -> String -> Cmd Msg.Msg
+type Msg = Measured (Result Http.Error ())
+
+
+hit : String -> String -> Cmd Msg
 hit trackingId clientId =
     let
         url =
@@ -20,5 +22,5 @@ hit trackingId clientId =
     Http.post
         { url = "https://www.google-analytics.com" ++ url
         , body = Http.emptyBody
-        , expect = Http.expectWhatever Msg.Uploaded
+        , expect = Http.expectWhatever Measured
         }

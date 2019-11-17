@@ -2,13 +2,14 @@ module Messages exposing (Msg(..), QuizMsg(..))
 
 import Http
 import Model
+import Analytics
 
 
 type Msg
     = StartQuiz
     | Quiz QuizMsg
     | GotModel (Result Http.Error Model.Settings)
-    | Uploaded (Result Http.Error ())
+    | Measured Analytics.Msg
 
 
 type QuizMsg

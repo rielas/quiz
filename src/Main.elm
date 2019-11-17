@@ -54,7 +54,8 @@ update msg model =
 
                 Msg.Answer answer ->
                     ( Model.answerQuestion answer model
-                    , Analytics.hit "UA-151596008-1" model.clientId
+                    , Cmd.map Msg.Measured <|
+                        Analytics.hit model.trackingId model.clientId
                     )
 
         Msg.GotModel settings ->
@@ -78,7 +79,7 @@ update msg model =
             , Cmd.none
             )
 
-        Msg.Uploaded _ ->
+        Msg.Measured _ ->
             ( model, Cmd.none )
 
 
