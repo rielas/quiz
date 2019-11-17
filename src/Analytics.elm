@@ -5,15 +5,15 @@ import Messages as Msg
 import Url.Builder as Url
 
 
-hit : String -> Cmd Msg.Msg
-hit tid =
+hit : String -> String -> Cmd Msg.Msg
+hit trackingId clientId =
     let
         url =
             Url.absolute [ "collect" ]
                 [ Url.string "v" "1"
                 , Url.string "t" "pageview"
-                , Url.string "tid" tid
-                , Url.string "cid" "6860e328-507f-4727-b6bf-8f65ae60affe"
+                , Url.string "tid" trackingId
+                , Url.string "cid" clientId
                 , Url.string "dp" "/home/anatol/page/1"
                 ]
     in

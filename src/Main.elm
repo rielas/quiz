@@ -18,9 +18,14 @@ main =
         }
 
 
-init : { quizAddr : String } -> ( Model.Model, Cmd Msg.Msg )
+init :
+    { quizAddr : String
+    , trackingId : String
+    , clientId : String
+    }
+    -> ( Model.Model, Cmd Msg.Msg )
 init flags =
-    ( Model.emptyModel
+    ( Model.emptyModel flags.trackingId flags.clientId
     , getQuestions flags.quizAddr
     )
 
@@ -42,11 +47,6 @@ update msg model =
             , Cmd.none
             )
 
-        Msg.Reset ->
-            ( Model.emptyModel
-            , Cmd.none
-            )
-
         Msg.Quiz quiz ->
             case quiz of
                 Msg.Next ->
@@ -54,7 +54,7 @@ update msg model =
 
                 Msg.Answer answer ->
                     ( Model.answerQuestion answer model
-                    , Analytics.hit "UA-151596008-1"
+                    , Analytics.hit "UA-151596008-1" model.clientId
                     )
 
         Msg.GotModel settings ->

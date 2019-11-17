@@ -9,7 +9,6 @@ type Msg
     | Quiz QuizMsg
     | GotModel (Result Http.Error Model.Settings)
     | Uploaded (Result Http.Error ())
-    | Reset
 
 
 type QuizMsg

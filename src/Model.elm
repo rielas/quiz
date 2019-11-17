@@ -31,6 +31,8 @@ type alias Model =
     , finishPage : String
     , remainingQuestions : List Question
     , scores : List Score
+    , trackingId : String
+    , clientId : String
     }
 
 
@@ -84,8 +86,8 @@ startQuiz model =
             { model | state = Finish }
 
 
-emptyModel : Model
-emptyModel =
+emptyModel : String -> String -> Model
+emptyModel trackingId clientId  =
     { state = Init
     , correctAnswers = 0
     , questionsSize = 0
@@ -93,6 +95,8 @@ emptyModel =
     , finishPage = ""
     , remainingQuestions = []
     , scores = []
+    , trackingId = trackingId
+    , clientId = clientId
     }
 
 
