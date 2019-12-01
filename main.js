@@ -6468,6 +6468,9 @@ var $author$project$Model$answerQuestion = F2(
 			model,
 			{I: correctAnswers, bv: state_});
 	});
+var $author$project$Model$currentQuestion = function (model) {
+	return model.T - $elm$core$List$length(model.bs);
+};
 var $author$project$Analytics$Measured = $elm$core$Basics$identity;
 var $elm$url$Url$Builder$toQueryPair = function (_v0) {
 	var key = _v0.a;
@@ -6521,8 +6524,8 @@ var $elm$url$Url$Builder$string = F2(
 			$elm$url$Url$percentEncode(key),
 			$elm$url$Url$percentEncode(value));
 	});
-var $author$project$Analytics$hit = F3(
-	function (type_, trackingId, clientId) {
+var $author$project$Analytics$hit = F4(
+	function (type_, trackingId, clientId, documentPath) {
 		var url = A2(
 			$elm$url$Url$Builder$absolute,
 			_List_fromArray(
@@ -6533,7 +6536,7 @@ var $author$project$Analytics$hit = F3(
 					A2($elm$url$Url$Builder$string, 't', type_),
 					A2($elm$url$Url$Builder$string, 'tid', trackingId),
 					A2($elm$url$Url$Builder$string, 'cid', clientId),
-					A2($elm$url$Url$Builder$string, 'dp', '/home/anatol/page/1')
+					A2($elm$url$Url$Builder$string, 'dp', documentPath)
 				]));
 		return $elm$http$Http$post(
 			{
@@ -6612,7 +6615,13 @@ var $author$project$Main$update = F2(
 						A2(
 							$elm$core$Platform$Cmd$map,
 							$author$project$Messages$Measured,
-							A3($author$project$Analytics$hit, 'pageview', model.ah, model.X)));
+							A4(
+								$author$project$Analytics$hit,
+								'pageview',
+								model.ah,
+								model.X,
+								'/quiz/' + $elm$core$String$fromInt(
+									$author$project$Model$currentQuestion(model)))));
 				}
 			case 2:
 				var settings = msg.a;
@@ -6638,9 +6647,6 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
-var $author$project$Model$currentQuestion = function (model) {
-	return model.T - $elm$core$List$length(model.bs);
-};
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
