@@ -1,8 +1,8 @@
 module Messages exposing (Msg(..), QuizMsg(..))
 
+import Analytics
 import Http
 import Model
-import Analytics
 
 
 type Msg

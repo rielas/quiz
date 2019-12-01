@@ -55,7 +55,7 @@ update msg model =
                 Msg.Answer answer ->
                     ( Model.answerQuestion answer model
                     , Cmd.map Msg.Measured <|
-                        Analytics.hit model.trackingId model.clientId
+                        Analytics.hit "pageview" model.trackingId model.clientId
                     )
 
         Msg.GotModel settings ->

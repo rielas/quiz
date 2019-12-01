@@ -1,4 +1,19 @@
-module Model exposing (Answer, Answered(..), Model, Question, QuizModel, Settings, State(..), answerQuestion, emptyModel, getScore, nextQuestion, settingsDecoder, startQuiz)
+module Model exposing
+    ( Answer
+    , Answered(..)
+    , Model
+    , Question
+    , QuizModel
+    , Settings
+    , State(..)
+    , answerQuestion
+    , currentQuestion
+    , emptyModel
+    , getScore
+    , nextQuestion
+    , settingsDecoder
+    , startQuiz
+    )
 
 import Array
 import Json.Decode as Json
@@ -87,7 +102,7 @@ startQuiz model =
 
 
 emptyModel : String -> String -> Model
-emptyModel trackingId clientId  =
+emptyModel trackingId clientId =
     { state = Init
     , correctAnswers = 0
     , questionsSize = 0
@@ -115,6 +130,11 @@ nextQuestion model =
 
         _ ->
             { model | state = Finish }
+
+
+currentQuestion : Model -> Int
+currentQuestion model =
+    model.questionsSize - List.length model.remainingQuestions
 
 
 isCorrect id quiz =

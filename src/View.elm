@@ -74,9 +74,7 @@ view model =
                 viewStart model
 
             Model.Quiz quiz ->
-                viewQuiz quiz
-                    (List.length model.remainingQuestions)
-                    model.questionsSize
+                viewQuiz quiz (Model.currentQuestion model) model.questionsSize
 
             Model.Finish ->
                 viewFinish model
@@ -84,28 +82,24 @@ view model =
 
 
 viewHeader : Int -> Int -> Html Msg.Msg
-viewHeader left questionsNumber =
-    let
-        n =
-            questionsNumber - left
-    in
+viewHeader current questionsSize =
     div
         [ class "header" ]
         [ div [ class "questions-count" ]
             [ text
-                (String.fromInt n
+                (String.fromInt current
                     ++ "/"
-                    ++ String.fromInt questionsNumber
+                    ++ String.fromInt questionsSize
                 )
             ]
         ]
 
 
 viewQuiz : Model.QuizModel -> Int -> Int -> Html Msg.Msg
-viewQuiz quiz questionsLeft questionsNumber =
+viewQuiz quiz currentQuestion questionsSize =
     let
         sections =
-            [ viewHeader questionsLeft questionsNumber
+            [ viewHeader currentQuestion questionsSize
             , div
                 [ class "card-wrapper" ]
                 [ div

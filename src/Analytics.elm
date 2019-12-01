@@ -4,16 +4,17 @@ import Http
 import Url.Builder as Url
 
 
-type Msg = Measured (Result Http.Error ())
+type Msg
+    = Measured (Result Http.Error ())
 
 
-hit : String -> String -> Cmd Msg
-hit trackingId clientId =
+hit : String -> String -> String -> Cmd Msg
+hit type_ trackingId clientId =
     let
         url =
             Url.absolute [ "collect" ]
                 [ Url.string "v" "1"
-                , Url.string "t" "pageview"
+                , Url.string "t" type_
                 , Url.string "tid" trackingId
                 , Url.string "cid" clientId
                 , Url.string "dp" "/home/anatol/page/1"
