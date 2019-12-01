@@ -8,8 +8,8 @@ type Msg
     = Measured (Result Http.Error ())
 
 
-hit : String -> String -> String -> Cmd Msg
-hit type_ trackingId clientId =
+hit : String -> String -> String -> String -> Cmd Msg
+hit type_ trackingId clientId documentPath =
     let
         url =
             Url.absolute [ "collect" ]
@@ -17,7 +17,7 @@ hit type_ trackingId clientId =
                 , Url.string "t" type_
                 , Url.string "tid" trackingId
                 , Url.string "cid" clientId
-                , Url.string "dp" "/home/anatol/page/1"
+                , Url.string "dp" documentPath
                 ]
     in
     Http.post
