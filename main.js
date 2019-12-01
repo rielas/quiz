@@ -2661,7 +2661,7 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 	return {
 		s: func(record.s),
 		ag: record.ag,
-		aa: record.aa
+		ab: record.ab
 	}
 });
 
@@ -2933,7 +2933,7 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ag;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.aa) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.ab) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -4189,8 +4189,8 @@ function _Browser_getViewport()
 	return {
 		aX: _Browser_getScene(),
 		a3: {
-			U: _Browser_window.pageXOffset,
-			V: _Browser_window.pageYOffset,
+			V: _Browser_window.pageXOffset,
+			W: _Browser_window.pageYOffset,
 			F: _Browser_doc.documentElement.clientWidth,
 			A: _Browser_doc.documentElement.clientHeight
 		}
@@ -4231,8 +4231,8 @@ function _Browser_getViewportOf(id)
 				A: node.scrollHeight
 			},
 			a3: {
-				U: node.scrollLeft,
-				V: node.scrollTop,
+				V: node.scrollLeft,
+				W: node.scrollTop,
 				F: node.clientWidth,
 				A: node.clientHeight
 			}
@@ -4266,14 +4266,14 @@ function _Browser_getElement(id)
 		return {
 			aX: _Browser_getScene(),
 			a3: {
-				U: x,
-				V: y,
+				V: x,
+				W: y,
 				F: _Browser_doc.documentElement.clientWidth,
 				A: _Browser_doc.documentElement.clientHeight
 			},
 			bb: {
-				U: x + rect.left,
-				V: y + rect.top,
+				V: x + rect.left,
+				W: y + rect.top,
 				F: rect.width,
 				A: rect.height
 			}
@@ -5457,7 +5457,7 @@ var $elm$json$Json$Decode$field = _Json_decodeField;
 var $author$project$Model$Init = {$: 0};
 var $author$project$Model$emptyModel = F2(
 	function (trackingId, clientId) {
-		return {W: clientId, I: 0, X: '', ab: 0, bs: _List_Nil, ac: _List_Nil, af: '', bv: $author$project$Model$Init, ah: trackingId};
+		return {X: clientId, I: 0, Y: '', T: 0, bs: _List_Nil, ac: _List_Nil, af: '', bv: $author$project$Model$Init, ah: trackingId};
 	});
 var $author$project$Messages$GotModel = function (a) {
 	return {$: 2, a: a};
@@ -6251,7 +6251,7 @@ var $elm$http$Http$get = function (r) {
 };
 var $author$project$Model$Settings = F4(
 	function (questions, startPage, finishPage, scores) {
-		return {X: finishPage, aO: questions, ac: scores, af: startPage};
+		return {Y: finishPage, aO: questions, ac: scores, af: startPage};
 	});
 var $elm$json$Json$Decode$list = _Json_decodeList;
 var $elm$json$Json$Decode$map4 = _Json_map4;
@@ -6282,7 +6282,7 @@ var $author$project$Model$questionDecoder = A5(
 	A2($elm$json$Json$Decode$field, 'success', $elm$json$Json$Decode$string));
 var $author$project$Model$Score = F2(
 	function (min, description) {
-		return {ap: description, Z: min};
+		return {ap: description, _: min};
 	});
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $author$project$Model$scoreDecoder = A3(
@@ -6312,7 +6312,7 @@ var $author$project$Main$getQuestions = function (address) {
 };
 var $author$project$Main$init = function (flags) {
 	return _Utils_Tuple2(
-		A2($author$project$Model$emptyModel, flags.ah, flags.W),
+		A2($author$project$Model$emptyModel, flags.ah, flags.X),
 		$author$project$Main$getQuestions(flags.aP));
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -6521,8 +6521,8 @@ var $elm$url$Url$Builder$string = F2(
 			$elm$url$Url$percentEncode(key),
 			$elm$url$Url$percentEncode(value));
 	});
-var $author$project$Analytics$hit = F2(
-	function (trackingId, clientId) {
+var $author$project$Analytics$hit = F3(
+	function (type_, trackingId, clientId) {
 		var url = A2(
 			$elm$url$Url$Builder$absolute,
 			_List_fromArray(
@@ -6530,7 +6530,7 @@ var $author$project$Analytics$hit = F2(
 			_List_fromArray(
 				[
 					A2($elm$url$Url$Builder$string, 'v', '1'),
-					A2($elm$url$Url$Builder$string, 't', 'pageview'),
+					A2($elm$url$Url$Builder$string, 't', type_),
 					A2($elm$url$Url$Builder$string, 'tid', trackingId),
 					A2($elm$url$Url$Builder$string, 'cid', clientId),
 					A2($elm$url$Url$Builder$string, 'dp', '/home/anatol/page/1')
@@ -6572,7 +6572,7 @@ var $author$project$Model$startQuiz = function (model) {
 		return _Utils_update(
 			model,
 			{
-				ab: size,
+				T: size,
 				bs: rest,
 				bv: $author$project$Model$Quiz(
 					{H: $author$project$Model$NotYet, Q: question})
@@ -6612,18 +6612,18 @@ var $author$project$Main$update = F2(
 						A2(
 							$elm$core$Platform$Cmd$map,
 							$author$project$Messages$Measured,
-							A2($author$project$Analytics$hit, model.ah, model.W)));
+							A3($author$project$Analytics$hit, 'pageview', model.ah, model.X)));
 				}
 			case 2:
 				var settings = msg.a;
 				var settings_ = A2(
 					$elm$core$Result$withDefault,
-					{X: '', aO: _List_Nil, ac: _List_Nil, af: ''},
+					{Y: '', aO: _List_Nil, ac: _List_Nil, af: ''},
 					settings);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{X: settings_.X, bs: settings_.aO, ac: settings_.ac, af: settings_.af, bv: $author$project$Model$Start}),
+						{Y: settings_.Y, bs: settings_.aO, ac: settings_.ac, af: settings_.af, bv: $author$project$Model$Start}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -6638,6 +6638,9 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $author$project$Model$currentQuestion = function (model) {
+	return model.T - $elm$core$List$length(model.bs);
+};
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
@@ -6689,13 +6692,13 @@ var $author$project$Model$getScore = F2(
 		var sorted = A2(
 			$elm$core$List$sortBy,
 			function ($) {
-				return $.Z;
+				return $._;
 			},
 			scores);
 		var lessorequal = A2(
 			$elm_community$list_extra$List$Extra$takeWhile,
 			function (score) {
-				return _Utils_cmp(score.Z, points) < 1;
+				return _Utils_cmp(score._, points) < 1;
 			},
 			sorted);
 		return $elm_community$list_extra$List$Extra$last(lessorequal);
@@ -10223,7 +10226,7 @@ var $author$project$View$setFields = F3(
 		}
 	});
 var $author$project$View$viewFinish = function (model) {
-	var score = $elm$core$String$fromInt(model.I) + ('/' + $elm$core$String$fromInt(model.ab));
+	var score = $elm$core$String$fromInt(model.I) + ('/' + $elm$core$String$fromInt(model.T));
 	var description = A2(
 		$elm$core$Maybe$map,
 		function (s) {
@@ -10235,7 +10238,7 @@ var $author$project$View$viewFinish = function (model) {
 		_List_Nil,
 		A3(
 			$author$project$View$setFields,
-			model.X,
+			model.Y,
 			score,
 			A2($elm$core$Maybe$withDefault, '', description)));
 };
@@ -10354,8 +10357,7 @@ var $author$project$View$viewAnswers = F2(
 				question.aj));
 	});
 var $author$project$View$viewHeader = F2(
-	function (left, questionsNumber) {
-		var n = questionsNumber - left;
+	function (current, questionsSize) {
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -10373,15 +10375,15 @@ var $author$project$View$viewHeader = F2(
 					_List_fromArray(
 						[
 							$elm$html$Html$text(
-							$elm$core$String$fromInt(n) + ('/' + $elm$core$String$fromInt(questionsNumber)))
+							$elm$core$String$fromInt(current) + ('/' + $elm$core$String$fromInt(questionsSize)))
 						]))
 				]));
 	});
 var $author$project$View$viewQuiz = F3(
-	function (quiz, questionsLeft, questionsNumber) {
+	function (quiz, currentQuestion, questionsSize) {
 		var sections = _List_fromArray(
 			[
-				A2($author$project$View$viewHeader, questionsLeft, questionsNumber),
+				A2($author$project$View$viewHeader, currentQuestion, questionsSize),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
@@ -10493,8 +10495,8 @@ var $author$project$View$view = function (model) {
 						return A3(
 							$author$project$View$viewQuiz,
 							quiz,
-							$elm$core$List$length(model.bs),
-							model.ab);
+							$author$project$Model$currentQuestion(model),
+							model.T);
 					default:
 						return $author$project$View$viewFinish(model);
 				}
@@ -10514,7 +10516,7 @@ _Platform_export({'Main':{'init':$author$project$Main$main(
 						$elm$json$Json$Decode$andThen,
 						function (clientId) {
 							return $elm$json$Json$Decode$succeed(
-								{W: clientId, aP: quizAddr, ah: trackingId});
+								{X: clientId, aP: quizAddr, ah: trackingId});
 						},
 						A2($elm$json$Json$Decode$field, 'clientId', $elm$json$Json$Decode$string));
 				},
