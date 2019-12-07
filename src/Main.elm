@@ -55,7 +55,7 @@ update msg model =
                 Msg.Answer answer ->
                     ( Model.answerQuestion answer model
                     , Cmd.map Msg.Measured <|
-                        Analytics.hit "pageview" model.trackingId model.clientId <|
+                        Analytics.pageview model.trackingId model.clientId <|
                             "/quiz/"
                                 ++ (String.fromInt <| Model.currentQuestion model)
                     )
