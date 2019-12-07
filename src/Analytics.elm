@@ -1,8 +1,6 @@
-module Analytics exposing (Msg, pageview, suite)
+module Analytics exposing (HitType(..), Msg, hit, pageview, request)
 
-import Expect
 import Http
-import Test exposing (..)
 import Url.Builder as Url
 
 
@@ -76,16 +74,3 @@ hit ( url, body ) =
 pageview : String -> String -> String -> Cmd Msg
 pageview trackingId clientId documentPath =
     request Pageview trackingId clientId documentPath |> hit
-
-
-suite : Test
-suite =
-    describe "Check Analytics requests"
-        [ test "pageview" <|
-            \_ ->
-                Expect.equal
-                    (request Pageview "UA-XXXXX-Y" "555" "/home")
-                    ( "https://www.google-analytics.com/collect?v=1&t=pageview&tid=UA-XXXXX-Y&cid=555&dp=%2Fhome"
-                    , Http.emptyBody
-                    )
-        ]

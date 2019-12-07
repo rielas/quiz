@@ -26,17 +26,8 @@ init :
     -> ( Model.Model, Cmd Msg.Msg )
 init flags =
     ( Model.emptyModel flags.trackingId flags.clientId
-    , getQuestions flags.quizAddr
+    , Cmd.none
     )
-
-
-getQuestions : String -> Cmd Msg.Msg
-getQuestions address =
-    Http.get
-        { url = address
-        , expect =
-            Http.expectJson Msg.GotModel Model.settingsDecoder
-        }
 
 
 update : Msg.Msg -> Model.Model -> ( Model.Model, Cmd Msg.Msg )
@@ -59,27 +50,6 @@ update msg model =
                             "/quiz/"
                                 ++ (String.fromInt <| Model.currentQuestion model)
                     )
-
-        Msg.GotModel settings ->
-            let
-                settings_ =
-                    Result.withDefault
-                        { questions = []
-                        , startPage = ""
-                        , finishPage = ""
-                        , scores = []
-                        }
-                        settings
-            in
-            ( { model
-                | remainingQuestions = settings_.questions
-                , startPage = settings_.startPage
-                , finishPage = settings_.finishPage
-                , scores = settings_.scores
-                , state = Model.Start
-              }
-            , Cmd.none
-            )
 
         Msg.Measured _ ->
             ( model, Cmd.none )

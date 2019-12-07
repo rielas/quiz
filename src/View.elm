@@ -67,9 +67,6 @@ view model =
     div
         [ class "game-wrapper" ]
         [ case model.state of
-            Model.Init ->
-                div [] [ text "Гружу вопросы" ]
-
             Model.Start ->
                 viewStart model
 
