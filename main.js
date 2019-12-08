@@ -5455,61 +5455,60 @@ var $elm$core$Task$perform = F2(
 var $elm$browser$Browser$element = _Browser_element;
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $author$project$Model$Start = {$: 0};
-var $author$project$Model$finishPage_ = '<div id=\"share\"><div class=\"top-block\"><img src=\"https://miro.medium.com/max/660/1*bwSiWbEBA7IyZNyqu2bgBQ.png\" class=\"logo\"><span class=\"commercial\"></span></div><div class=\"inner-container\"><div class=\"middle-block\"><div class=\"title\">Когда в СССР появилась «Пепси»? Проверим, смотрели ли вы программу «Намедни»</div><div class=\"share-container\"><div id=\"score\">5/11</div><div id=\"description\"></div></div></div></div></div>';
+var $author$project$Model$finishPage_ = '<div id=\"share\"><div class=\"top-block\"><img src=\"https://miro.medium.com/max/660/1*bwSiWbEBA7IyZNyqu2bgBQ.png\" class=\"logo\"><span class=\"commercial\"></span></div><div class=\"inner-container\"><div class=\"middle-block\"><div class=\"title\">How good do you know Elm language?</div><div class=\"share-container\"><div id=\"score\">5/11</div><div id=\"description\"></div></div></div></div></div>';
 var $author$project$Model$questions_ = _List_fromArray(
 	[
 		{
 		E: _List_fromArray(
 			[
-				{j: false, m: '<span>1987</span>'},
-				{j: true, m: '1989'},
-				{j: false, m: '1991'}
+				{j: true, p: '2012'},
+				{j: false, p: '2013'},
+				{j: false, p: '2014'}
 			]),
-		r: '<p>«Это проект „Намедни. Наша эра“. События, люди, явления, определившие образ жизни, то, без чего нас невозможно представить, еще труднее&nbsp;— понять».</p><p>Когда произошло событие, о&nbsp;котором говорит Леонид Парфенов?</p><figure><div><div><div><iframe src=\"//coub.com/embed/22xuqr?muted=false&amp;autostart=false&amp;originalSize=false&amp;startWithHD=false&amp;disable_changer=true\" allowfullscreen=\"\" frameborder=\"0\" width=\"100%\" height=\"300\" allow=\"autoplay\"></iframe></div></div></div></figure>',
-		Q: '<p>Вы&nbsp;ошиблись! <a href=\"https://www.youtube.com/watch?v=cii3LSGB4bY\" target=\"_blank\" rel=\"noopener\">9&nbsp;ноября 1989 года</a> телевидение ГДР передало вот такое сообщение: «Будет открыт свободный доступ в&nbsp;Западный Берлин».</p>',
-		U: '<p>Правильно! <a href=\"https://www.youtube.com/watch?v=cii3LSGB4bY\" target=\"_blank\" rel=\"noopener\">9&nbsp;ноября 1989 года</a> телевидение ГДР передало вот такое сообщение: «Будет открыт свободный доступ в&nbsp;Западный Берлин».</p>'
+		r: '<p>When Elm first appeared?</p><img alt=\"The Elm tangram\" width=\"120\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/800px-Elm_logo.svg.png\">',
+		Q: 'You\'re wrong 😔. It appeared at March 30, 2012',
+		U: 'You\'re right! It appeared at March 30, 2012'
 	},
 		{
 		E: _List_fromArray(
 			[
-				{j: false, m: '1970'},
-				{j: true, m: '1978'},
-				{j: false, m: '1982'}
+				{j: false, p: 'Static, Weak'},
+				{j: false, p: 'Dynamic, Weak, Inferred'},
+				{j: true, p: 'Static, Strong, Inferred'}
 			]),
-		r: '<p>В&nbsp;видео есть подсказка, но&nbsp;все&nbsp;же о&nbsp;каком мультфильме идет речь, а&nbsp;главное, когда он&nbsp;вышел?</p><figure><div><div><div><iframe src=\"//coub.com/embed/22xu83?muted=false&amp;autostart=false&amp;originalSize=false&amp;startWithHD=false&amp;disable_changer=true\" allowfullscreen=\"\" frameborder=\"0\" width=\"100%\" height=\"300\" allow=\"autoplay\"></iframe></div></div></div></figure>',
-		Q: '<p>Вот и&nbsp;нет! Режиссер Владимир Попов сделал «Трое из&nbsp;Простоквашино» <a href=\"https://www.youtube.com/watch?v=QzbrC0uQPyk\" target=\"_blank\" rel=\"noopener\">в&nbsp;1978 </a>году. Сценарий написал Эдуард Успенский. Еще один известный факт: кота Матроскина озвучивал Олег Табаков.</p>',
-		U: '<p>Отлично! Режиссер Владимир Попов сделал «Трое из&nbsp;Простоквашино» <a href=\"https://www.youtube.com/watch?v=QzbrC0uQPyk\" target=\"_blank\" rel=\"noopener\">в&nbsp;1978 году.</a> Сценарий написал Эдуард Успенский. Еще один известный факт: кота Матроскина озвучивал Олег Табаков.</p>'
+		r: 'How to describe Elm type system?',
+		Q: 'You aren\'t right',
+		U: 'You\'re right'
 	},
 		{
 		E: _List_fromArray(
 			[
-				{j: false, m: 'Начало 70-х'},
-				{j: true, m: 'Конец 70-х'},
-				{j: false, m: 'Начало 90-х'}
+				{j: false, p: 'Guido van Rossum'},
+				{j: true, p: 'Evan Czaplicki'},
+				{j: false, p: 'Bjarne Stroustrup'}
 			]),
-		r: '<p>Когда в&nbsp;СССР началась <strong>массовая продажа</strong> напитков «Фанта», «Кола» и&nbsp;«Пепси»?</p><figure><div><div><div><iframe src=\"//coub.com/embed/22xue6?muted=false&amp;autostart=false&amp;originalSize=false&amp;startWithHD=false&amp;disable_changer=true\" allowfullscreen=\"\" frameborder=\"0\" width=\"100%\" height=\"300\" allow=\"autoplay\"></iframe></div></div></div></figure>',
-		Q: '<p>Нет, это довольно поздно! «Кока-кола», «Фанта» и&nbsp;«Пепси-кола» выпускались в&nbsp;цехах Очаковского завода. «Колу» продавали только на&nbsp;территории спортивных сооружений, а&nbsp;«Фанту» и&nbsp;«Пепси» люди могли купить в&nbsp;магазинах. Первые бутылки «Пепси» появились еще в&nbsp;1973 году, но&nbsp;массово все виды газировок стали продавать в&nbsp;1979-м. Тогда напиток «Пепси» появился в&nbsp;73 киосках Москвы, а&nbsp;спонсором <a href=\"https://www.youtube.com/watch?v=bM3Nr8rw8sk\" target=\"_blank\" rel=\"noopener\">Олимпиады-1980</a> в&nbsp;Москве стала Coca-Cola Company.</p>',
-		U: '<p>Верно! «Кока-кола», «Фанта» и&nbsp;«Пепси-кола» выпускались в&nbsp;цехах Очаковского завода. «Колу» продавали только на&nbsp;территории спортивных сооружений, а&nbsp;«Фанту» и&nbsp;«Пепси» люди могли купить в&nbsp;магазинах. Первые бутылки «Пепси» появились еще в&nbsp;1973 году, но&nbsp;массово все виды газировок стали продавать в&nbsp;1979-м. Тогда напиток «Пепси» появился в&nbsp;73 киосках Москвы, а&nbsp;спонсором <a href=\"https://www.youtube.com/watch?v=bM3Nr8rw8sk\" target=\"_blank\" rel=\"noopener\">Олимпиады-1980</a> в&nbsp;Москве стала Coca-Cola Company.</p>'
+		r: 'Who is the inventor of Elm?',
+		Q: 'No. The inventor is Evan Czaplicki',
+		U: 'You\'re totally right!'
 	},
 		{
 		E: _List_fromArray(
 			[
-				{j: false, m: 'Хм, в 1966-м?'},
-				{j: true, m: 'Хм, в 1962-м?'},
-				{j: false, m: 'Хм, в 1958-м?'}
+				{j: false, p: 'Yes'},
+				{j: true, p: 'No'}
 			]),
-		r: '<p>Карибский кризис. Помните, когда он&nbsp;произошел?</p><figure><div><div><div><iframe src=\"//coub.com/embed/22xtla?muted=false&amp;autostart=false&amp;originalSize=false&amp;startWithHD=false&amp;disable_changer=true\" allowfullscreen=\"\" frameborder=\"0\" width=\"100%\" height=\"300\" allow=\"autoplay\"></iframe></div></div></div></figure>',
-		Q: '<p>Нет! США разместили ядерное оружие в&nbsp;Турции в&nbsp;1961 году, а&nbsp;Карибский кризис случился <a href=\"https://www.youtube.com/watch?v=9EJ5DTc1Xlg\" target=\"_blank\" rel=\"noopener\">в&nbsp;1962</a> году, когда СССР тайно разместил свои вооруженные силы на&nbsp;Кубе.</p>',
-		U: '<p>Верно! США разместили ядерное оружие в&nbsp;Турции в&nbsp;1961 году, а&nbsp;Карибский кризис случился <a href=\"https://www.youtube.com/watch?v=9EJ5DTc1Xlg\" target=\"_blank\" rel=\"noopener\">в&nbsp;1962</a> году, когда СССР тайно разместил свои вооруженные силы на&nbsp;Кубе.</p>'
+		r: 'Does Elm support higher-kinded polymorphism?',
+		Q: 'Unfortunately no, unlike Haskell and PureScript',
+		U: 'Yeah. That\'s why Elm does not have a generic map function which works across multiple data structures such as List and Set'
 	}
 	]);
 var $author$project$Model$scores_ = _List_fromArray(
 	[
-		{r: '<div class=\"result\">Миллениал!</div><div class=\"desc\">Вы&nbsp;что-то слышали о&nbsp;событиях второй половины XX&nbsp;века</div>', H: 0},
-		{r: '<div class=\"result\">Поколение X</div><div class=\"desc\">Вы знаете, что происходило во второй половине XX века</div>', H: 1},
-		{r: '<div class=\"result\">Леонид Парфенов!</div><div class=\"desc\">Вы&nbsp;смотрели все выпуски программы «Намедни»</div>', H: 3}
+		{r: '<div class=\"result\">Javascripter!</div><div class=\"desc\">Seems, you don\'t know anything about Elm</div>', H: 0},
+		{r: '<div class=\"result\">Beginner</div><div class=\"desc\">Seems, you\'re starting programming Elm</div>', H: 1},
+		{r: '<div class=\"result\">Evan Czaplicki!</div><div class=\"desc\">You know everything about Elm</div>', H: 3}
 	]);
-var $author$project$Model$startPage_ = '<h1>Когда в СССР появилась «Пепси»? А когда произошло падение Берлинской стены?<span> <!-- -->Проверим, смотрели ли вы программу «Намедни» </span></h1>\n    <div class=\"date\"><time>09:00, 17 октября 2019</time></div>\n    <p>Леонид Парфенов заявил, что ему больше не принадлежит бренд «Намедни». Это произошло по требованию канала НТВ. А вы смотрели старые выпуски? Если да, то наверняка помните, когда вышел фильм «Ирония судьбы» и случился Карибский кризис. А если нет, сейчас узнаете, да и лишний раз посмотреть «Намедни» всегда приятно. В общем, беспроигрышный тест!</p>';
+var $author$project$Model$startPage_ = '<h1>Do you know Elm?</h1><p>Let\'s see how good you know Elm language: the best language for frontend development</p><img alt=\"The Elm tangram\" width=\"120\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/800px-Elm_logo.svg.png\">';
 var $author$project$Model$emptyModel = F2(
 	function (trackingId, clientId) {
 		return {af: clientId, P: 0, ag: $author$project$Model$finishPage_, ab: 0, x: $author$project$Model$questions_, ak: $author$project$Model$scores_, an: $author$project$Model$startPage_, y: $author$project$Model$Start, ap: trackingId};
@@ -10332,7 +10331,7 @@ var $author$project$View$viewAnswer = F4(
 							[
 								$elm$html$Html$Attributes$class('answer-container')
 							]),
-						$author$project$View$textHtml(answer.m))
+						$author$project$View$textHtml(answer.p))
 					]),
 				comment));
 	});
@@ -10456,7 +10455,7 @@ var $author$project$View$viewStart = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Пройти тест')
+								$elm$html$Html$text('Let\'s Go!')
 							]))
 					]))
 			]));
