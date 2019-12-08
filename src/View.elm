@@ -204,6 +204,6 @@ viewStart model =
     div []
         [ div [] (textHtml model.startPage)
         , div []
-            [ button [ onClick Msg.StartQuiz ] [ text "Пройти тест" ]
+            [ button [ onClick Msg.StartQuiz ] [ text "Let's Go!" ]
             ]
         ]
