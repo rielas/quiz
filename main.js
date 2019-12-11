@@ -1858,8 +1858,8 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 		flagDecoder,
 		args,
 		impl.bl,
-		impl.bD,
-		impl.bA,
+		impl.bC,
+		impl.bz,
 		function() { return function() {} }
 	);
 });
@@ -3884,10 +3884,10 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 		flagDecoder,
 		args,
 		impl.bl,
-		impl.bD,
-		impl.bA,
+		impl.bC,
+		impl.bz,
 		function(sendToApp, initialModel) {
-			var view = impl.bF;
+			var view = impl.bE;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3920,11 +3920,11 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 		flagDecoder,
 		args,
 		impl.bl,
-		impl.bD,
-		impl.bA,
+		impl.bC,
+		impl.bz,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.al && impl.al(sendToApp)
-			var view = impl.bF;
+			var view = impl.bE;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3937,7 +3937,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.bC) && (_VirtualDom_doc.title = title = doc.bC);
+				(title !== doc.bB) && (_VirtualDom_doc.title = title = doc.bB);
 			});
 		}
 	);
@@ -4028,9 +4028,9 @@ function _Browser_application(impl)
 		{
 			return A3(impl.bl, flags, _Browser_getUrl(), key);
 		},
-		bF: impl.bF,
-		bD: impl.bD,
-		bA: impl.bA
+		bE: impl.bE,
+		bC: impl.bC,
+		bz: impl.bz
 	});
 }
 
@@ -4367,9 +4367,9 @@ var _Http_toTask = F3(function(router, toTask, request)
 		$elm$core$Maybe$isJust(request.a4) && _Http_track(router, xhr, request.a4.a);
 
 		try {
-			xhr.open(request.bn, request.bE, true);
+			xhr.open(request.bn, request.bD, true);
 		} catch (e) {
-			return done($elm$http$Http$BadUrl_(request.bE));
+			return done($elm$http$Http$BadUrl_(request.bD));
 		}
 
 		_Http_configureRequest(xhr, request);
@@ -4390,7 +4390,7 @@ function _Http_configureRequest(xhr, request)
 	{
 		xhr.setRequestHeader(headers.a.a, headers.a.b);
 	}
-	xhr.timeout = request.bB.a || 0;
+	xhr.timeout = request.bA.a || 0;
 	xhr.responseType = request.bf.d;
 	xhr.withCredentials = request.a9;
 }
@@ -4413,9 +4413,9 @@ function _Http_toResponse(toBody, xhr)
 function _Http_toMetadata(xhr)
 {
 	return {
-		bE: xhr.responseURL,
-		by: xhr.status,
-		bz: xhr.statusText,
+		bD: xhr.responseURL,
+		bx: xhr.status,
+		by: xhr.statusText,
 		aB: _Http_parseHeaders(xhr.getAllResponseHeaders())
 	};
 }
@@ -4511,14 +4511,14 @@ function _Http_track(router, xhr, tracker)
 	xhr.upload.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Sending({
-			bx: event.loaded,
+			bw: event.loaded,
 			a0: event.total
 		}))));
 	});
 	xhr.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Receiving({
-			bv: event.loaded,
+			bu: event.loaded,
 			a0: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
 		}))));
 	});
@@ -6299,7 +6299,7 @@ var $elm$http$Http$resolve = F2(
 			case 3:
 				var metadata = response.a;
 				return $elm$core$Result$Err(
-					$elm$http$Http$BadStatus(metadata.by));
+					$elm$http$Http$BadStatus(metadata.bx));
 			default:
 				var body = response.b;
 				return A2(
@@ -6458,9 +6458,9 @@ var $elm$http$Http$cmdMap = F2(
 					bf: A2(_Http_mapExpect, func, r.bf),
 					aB: r.aB,
 					bn: r.bn,
-					bB: r.bB,
+					bA: r.bA,
 					a4: r.a4,
-					bE: r.bE
+					bD: r.bD
 				});
 		}
 	});
@@ -6483,11 +6483,11 @@ var $elm$http$Http$subscription = _Platform_leaf('Http');
 var $elm$http$Http$request = function (r) {
 	return $elm$http$Http$command(
 		$elm$http$Http$Request(
-			{a9: false, bb: r.bb, bf: r.bf, aB: r.aB, bn: r.bn, bB: r.bB, a4: r.a4, bE: r.bE}));
+			{a9: false, bb: r.bb, bf: r.bf, aB: r.aB, bn: r.bn, bA: r.bA, a4: r.a4, bD: r.bD}));
 };
 var $elm$http$Http$post = function (r) {
 	return $elm$http$Http$request(
-		{bb: r.bb, bf: r.bf, aB: _List_Nil, bn: 'POST', bB: $elm$core$Maybe$Nothing, a4: $elm$core$Maybe$Nothing, bE: r.bE});
+		{bb: r.bb, bf: r.bf, aB: _List_Nil, bn: 'POST', bA: $elm$core$Maybe$Nothing, a4: $elm$core$Maybe$Nothing, bD: r.bD});
 };
 var $author$project$Analytics$hit = function (_v0) {
 	var url = _v0.a;
@@ -6496,7 +6496,7 @@ var $author$project$Analytics$hit = function (_v0) {
 		{
 			bb: body,
 			bf: $elm$http$Http$expectWhatever($elm$core$Basics$identity),
-			bE: url
+			bD: url
 		});
 };
 var $elm$url$Url$Builder$toQueryPair = function (_v0) {
@@ -10499,22 +10499,17 @@ var $author$project$View$view = function (model) {
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
-	{bl: $author$project$Main$init, bA: $author$project$Main$subscriptions, bD: $author$project$Main$update, bF: $author$project$View$view});
+	{bl: $author$project$Main$init, bz: $author$project$Main$subscriptions, bC: $author$project$Main$update, bE: $author$project$View$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
 		function (trackingId) {
 			return A2(
 				$elm$json$Json$Decode$andThen,
-				function (quizAddr) {
-					return A2(
-						$elm$json$Json$Decode$andThen,
-						function (clientId) {
-							return $elm$json$Json$Decode$succeed(
-								{af: clientId, bu: quizAddr, ap: trackingId});
-						},
-						A2($elm$json$Json$Decode$field, 'clientId', $elm$json$Json$Decode$string));
+				function (clientId) {
+					return $elm$json$Json$Decode$succeed(
+						{af: clientId, ap: trackingId});
 				},
-				A2($elm$json$Json$Decode$field, 'quizAddr', $elm$json$Json$Decode$string));
+				A2($elm$json$Json$Decode$field, 'clientId', $elm$json$Json$Decode$string));
 		},
 		A2($elm$json$Json$Decode$field, 'trackingId', $elm$json$Json$Decode$string)))(0)}});}(this));
