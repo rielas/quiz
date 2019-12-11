@@ -519,11 +519,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.am.R === region.av.R)
+	if (region.am.S === region.av.S)
 	{
-		return 'on line ' + region.am.R;
+		return 'on line ' + region.am.S;
 	}
-	return 'on lines ' + region.am.R + ' through ' + region.av.R;
+	return 'on lines ' + region.am.S + ' through ' + region.av.S;
 }
 
 
@@ -4191,8 +4191,8 @@ function _Browser_getViewport()
 		a6: {
 			ad: _Browser_window.pageXOffset,
 			ae: _Browser_window.pageYOffset,
-			M: _Browser_doc.documentElement.clientWidth,
-			G: _Browser_doc.documentElement.clientHeight
+			O: _Browser_doc.documentElement.clientWidth,
+			H: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4202,8 +4202,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		M: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		G: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		O: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		H: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4227,14 +4227,14 @@ function _Browser_getViewportOf(id)
 	{
 		return {
 			a_: {
-				M: node.scrollWidth,
-				G: node.scrollHeight
+				O: node.scrollWidth,
+				H: node.scrollHeight
 			},
 			a6: {
 				ad: node.scrollLeft,
 				ae: node.scrollTop,
-				M: node.clientWidth,
-				G: node.clientHeight
+				O: node.clientWidth,
+				H: node.clientHeight
 			}
 		};
 	});
@@ -4268,14 +4268,14 @@ function _Browser_getElement(id)
 			a6: {
 				ad: x,
 				ae: y,
-				M: _Browser_doc.documentElement.clientWidth,
-				G: _Browser_doc.documentElement.clientHeight
+				O: _Browser_doc.documentElement.clientWidth,
+				H: _Browser_doc.documentElement.clientHeight
 			},
 			be: {
 				ad: x + rect.left,
 				ae: y + rect.top,
-				M: rect.width,
-				G: rect.height
+				O: rect.width,
+				H: rect.height
 			}
 		};
 	});
@@ -5459,59 +5459,70 @@ var $author$project$Model$finishPage_ = '<div id=\"share\"><div class=\"top-bloc
 var $author$project$Model$questions_ = _List_fromArray(
 	[
 		{
-		E: _List_fromArray(
+		A: _List_fromArray(
 			[
-				{j: true, p: '2012'},
-				{j: false, p: '2013'},
-				{j: false, p: '2014'}
+				{i: true, k: '2012'},
+				{i: false, k: '2013'},
+				{i: false, k: '2014'}
 			]),
-		r: '<p>When Elm first appeared?</p><img alt=\"The Elm tangram\" width=\"120\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/800px-Elm_logo.svg.png\">',
-		Q: 'You\'re wrong 😔. It appeared at March 30, 2012',
-		U: 'You\'re right! It appeared at March 30, 2012'
+		q: '<p>When Elm first appeared?</p><img alt=\"The Elm tangram\" width=\"120\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/800px-Elm_logo.svg.png\">',
+		G: 'You\'re wrong 😔. It appeared at March 30, 2012',
+		M: 'You\'re right! It appeared at March 30, 2012'
 	},
 		{
-		E: _List_fromArray(
+		A: _List_fromArray(
 			[
-				{j: false, p: 'Static, Weak'},
-				{j: false, p: 'Dynamic, Weak, Inferred'},
-				{j: true, p: 'Static, Strong, Inferred'}
+				{i: false, k: 'Static, Weak'},
+				{i: false, k: 'Dynamic, Weak, Inferred'},
+				{i: true, k: 'Static, Strong, Inferred'}
 			]),
-		r: 'How to describe Elm type system?',
-		Q: 'You aren\'t right',
-		U: 'You\'re right'
+		q: 'How to describe Elm type system?',
+		G: 'You aren\'t right',
+		M: 'You\'re right'
 	},
 		{
-		E: _List_fromArray(
+		A: _List_fromArray(
 			[
-				{j: false, p: 'Guido van Rossum'},
-				{j: true, p: 'Evan Czaplicki'},
-				{j: false, p: 'Bjarne Stroustrup'}
+				{i: false, k: 'Guido van Rossum'},
+				{i: true, k: 'Evan Czaplicki'},
+				{i: false, k: 'Bjarne Stroustrup'}
 			]),
-		r: 'Who is the inventor of Elm?',
-		Q: 'No. The inventor is Evan Czaplicki',
-		U: 'You\'re totally right!'
+		q: 'Who is the inventor of Elm?',
+		G: 'No. The inventor is Evan Czaplicki',
+		M: 'You\'re totally right!'
 	},
 		{
-		E: _List_fromArray(
+		A: _List_fromArray(
 			[
-				{j: false, p: 'Yes'},
-				{j: true, p: 'No'}
+				{i: false, k: 'Yes'},
+				{i: true, k: 'No'}
 			]),
-		r: 'Does Elm support higher-kinded polymorphism?',
-		Q: 'Unfortunately no, unlike Haskell and PureScript',
-		U: 'Yeah. That\'s why Elm does not have a generic map function which works across multiple data structures such as List and Set'
+		q: 'Does Elm support higher-kinded polymorphism?',
+		G: 'Unfortunately no, unlike Haskell and PureScript',
+		M: 'Yeah. That\'s why Elm does not have a generic map function which works across multiple data structures such as List and Set'
+	},
+		{
+		A: _List_fromArray(
+			[
+				{i: false, k: 'Banners and Ports'},
+				{i: true, k: 'Flags and Ports'},
+				{i: false, k: 'Flags and Harbours'}
+			]),
+		q: 'What are the mechanisms for JS interacting',
+		G: 'Nope. It\'s Flags and Ports',
+		M: 'You\'re right!'
 	}
 	]);
 var $author$project$Model$scores_ = _List_fromArray(
 	[
-		{r: '<div class=\"result\">Javascripter!</div><div class=\"desc\">Seems, you don\'t know anything about Elm</div>', H: 0},
-		{r: '<div class=\"result\">Beginner</div><div class=\"desc\">Seems, you\'re starting programming Elm</div>', H: 1},
-		{r: '<div class=\"result\">Evan Czaplicki!</div><div class=\"desc\">You know everything about Elm</div>', H: 3}
+		{q: '<div class=\"result\">Javascripter!</div><div class=\"desc\">Seems, you don\'t know anything about Elm</div>', I: 0},
+		{q: '<div class=\"result\">Beginner</div><div class=\"desc\">Seems, you\'re starting programming Elm</div>', I: 1},
+		{q: '<div class=\"result\">Evan Czaplicki!</div><div class=\"desc\">You know everything about Elm</div>', I: 3}
 	]);
 var $author$project$Model$startPage_ = '<h1>Do you know Elm?</h1><p>Let\'s see how good you know Elm language: the best language for frontend development</p><img alt=\"The Elm tangram\" width=\"120\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/800px-Elm_logo.svg.png\">';
 var $author$project$Model$emptyModel = F2(
 	function (trackingId, clientId) {
-		return {af: clientId, P: 0, ag: $author$project$Model$finishPage_, ab: 0, x: $author$project$Model$questions_, ak: $author$project$Model$scores_, an: $author$project$Model$startPage_, y: $author$project$Model$Start, ap: trackingId};
+		return {af: clientId, R: 0, ag: $author$project$Model$finishPage_, ab: 0, x: $author$project$Model$questions_, ak: $author$project$Model$scores_, an: $author$project$Model$startPage_, y: $author$project$Model$Start, ap: trackingId};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -5635,7 +5646,7 @@ var $elm$core$Maybe$withDefault = F2(
 	});
 var $author$project$Model$isCorrect = F2(
 	function (id, quiz) {
-		var array = $elm$core$Array$fromList(quiz.Z.E);
+		var array = $elm$core$Array$fromList(quiz.Z.A);
 		var answer = A2($elm$core$Array$get, id, array);
 		return A2(
 			$elm$core$Maybe$withDefault,
@@ -5643,7 +5654,7 @@ var $author$project$Model$isCorrect = F2(
 			A2(
 				$elm$core$Maybe$map,
 				function (a) {
-					return a.j;
+					return a.i;
 				},
 				answer));
 	});
@@ -5653,10 +5664,10 @@ var $author$project$Model$answerQuestion = F2(
 			var _v1 = model.y;
 			if (_v1.$ === 1) {
 				var quiz = _v1.a;
-				var quiz_ = _Utils_eq(quiz.O, $author$project$Model$NotYet) ? _Utils_update(
+				var quiz_ = _Utils_eq(quiz.Q, $author$project$Model$NotYet) ? _Utils_update(
 					quiz,
 					{
-						O: $author$project$Model$Already(id)
+						Q: $author$project$Model$Already(id)
 					}) : quiz;
 				var correct_ = A2($author$project$Model$isCorrect, id, quiz);
 				return _Utils_Tuple2(
@@ -5668,10 +5679,10 @@ var $author$project$Model$answerQuestion = F2(
 		}();
 		var state_ = _v0.a;
 		var correct = _v0.b;
-		var correctAnswers = correct ? (model.P + 1) : model.P;
+		var correctAnswers = correct ? (model.R + 1) : model.R;
 		return _Utils_update(
 			model,
-			{P: correctAnswers, y: state_});
+			{R: correctAnswers, y: state_});
 	});
 var $author$project$Model$currentQuestion = function (model) {
 	return model.ab - $elm$core$List$length(model.x);
@@ -5687,7 +5698,7 @@ var $author$project$Model$nextQuestion = function (model) {
 			{
 				x: rest,
 				y: $author$project$Model$Quiz(
-					{O: $author$project$Model$NotYet, Z: question})
+					{Q: $author$project$Model$NotYet, Z: question})
 			});
 	} else {
 		return _Utils_update(
@@ -6576,7 +6587,7 @@ var $author$project$Model$startQuiz = function (model) {
 				ab: size,
 				x: rest,
 				y: $author$project$Model$Quiz(
-					{O: $author$project$Model$NotYet, Z: question})
+					{Q: $author$project$Model$NotYet, Z: question})
 			});
 	} else {
 		return _Utils_update(
@@ -6673,13 +6684,13 @@ var $author$project$Model$getScore = F2(
 		var sorted = A2(
 			$elm$core$List$sortBy,
 			function ($) {
-				return $.H;
+				return $.I;
 			},
 			scores);
 		var lessorequal = A2(
 			$elm_community$list_extra$List$Extra$takeWhile,
 			function (score) {
-				return _Utils_cmp(score.H, points) < 1;
+				return _Utils_cmp(score.I, points) < 1;
 			},
 			sorted);
 		return $elm_community$list_extra$List$Extra$last(lessorequal);
@@ -10218,13 +10229,13 @@ var $author$project$View$setFields = F3(
 		}
 	});
 var $author$project$View$viewFinish = function (model) {
-	var score = $elm$core$String$fromInt(model.P) + ('/' + $elm$core$String$fromInt(model.ab));
+	var score = $elm$core$String$fromInt(model.R) + ('/' + $elm$core$String$fromInt(model.ab));
 	var description = A2(
 		$elm$core$Maybe$map,
 		function (s) {
-			return s.r;
+			return s.q;
 		},
-		A2($author$project$Model$getScore, model.ak, model.P));
+		A2($author$project$Model$getScore, model.ak, model.R));
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
@@ -10285,7 +10296,7 @@ var $author$project$View$viewAnswer = F4(
 		var comment = function () {
 			if (answered.$ === 1) {
 				var selected = answered.a;
-				return _Utils_eq(id, selected) ? (answer.j ? _List_fromArray(
+				return _Utils_eq(id, selected) ? (answer.i ? _List_fromArray(
 					[
 						A2(
 						$elm$html$Html$div,
@@ -10293,7 +10304,7 @@ var $author$project$View$viewAnswer = F4(
 							[
 								$elm$html$Html$Attributes$class('comment')
 							]),
-						$author$project$View$textHtml(question.U))
+						$author$project$View$textHtml(question.M))
 					]) : _List_fromArray(
 					[
 						A2(
@@ -10302,7 +10313,7 @@ var $author$project$View$viewAnswer = F4(
 							[
 								$elm$html$Html$Attributes$class('comment')
 							]),
-						$author$project$View$textHtml(question.Q))
+						$author$project$View$textHtml(question.G))
 					])) : _List_Nil;
 			} else {
 				return _List_Nil;
@@ -10311,7 +10322,7 @@ var $author$project$View$viewAnswer = F4(
 		var class_ = function () {
 			if (answered.$ === 1) {
 				var selected = answered.a;
-				return answer.j ? ' success' : (_Utils_eq(id, selected) ? ' fail' : ' answered');
+				return answer.i ? ' success' : (_Utils_eq(id, selected) ? ' fail' : ' answered');
 			} else {
 				return '';
 			}
@@ -10331,7 +10342,7 @@ var $author$project$View$viewAnswer = F4(
 							[
 								$elm$html$Html$Attributes$class('answer-container')
 							]),
-						$author$project$View$textHtml(answer.p))
+						$author$project$View$textHtml(answer.k))
 					]),
 				comment));
 	});
@@ -10346,7 +10357,7 @@ var $author$project$View$viewAnswers = F2(
 			A2(
 				$elm$core$List$indexedMap,
 				A2($author$project$View$viewAnswer, answered, question),
-				question.E));
+				question.A));
 	});
 var $author$project$View$viewHeader = F2(
 	function (current, questionsSize) {
@@ -10390,15 +10401,15 @@ var $author$project$View$viewQuiz = F3(
 							[
 								$elm$html$Html$Attributes$class('html-wrapper')
 							]),
-						$author$project$View$textHtml(quiz.Z.r)),
-						A2($author$project$View$viewAnswers, quiz.O, quiz.Z)
+						$author$project$View$textHtml(quiz.Z.q)),
+						A2($author$project$View$viewAnswers, quiz.Q, quiz.Z)
 					]))
 			]);
 		return A2(
 			$elm$html$Html$div,
 			_List_Nil,
 			function () {
-				var _v0 = quiz.O;
+				var _v0 = quiz.Q;
 				if (!_v0.$) {
 					return sections;
 				} else {
@@ -10424,7 +10435,7 @@ var $author$project$View$viewQuiz = F3(
 											]),
 										_List_fromArray(
 											[
-												$elm$html$Html$text('Дальше')
+												$elm$html$Html$text('Next')
 											]))
 									]))
 							]));
