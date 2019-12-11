@@ -87,6 +87,7 @@ button {
 }
 
 .answer {
+    flex-direction: column;
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
@@ -101,14 +102,17 @@ button {
 
 .fail {
     box-shadow: rgb(233, 69, 34) -4px 0px;
+    color: rgb(233, 69, 34);
 }
 
 .success {
     box-shadow: green -4px 0px;
+    color: rgb(78, 180, 84);
 }
 
 .answered {
     box-shadow: grey -4px 0px;
+    color: rgb(105, 105, 105);
 }
 
 .answer:first-child {
@@ -131,6 +135,7 @@ button {
 }
 
 .comment {
+    color: #000000;
     margin-top: 6px;
     padding-right: 5px;
 }
@@ -175,7 +180,7 @@ h1 span {
     flex-direction: column;
     position: relative;
     padding: 0px 35px;
-    background: url(https://meduza.io/image/attachments/images/004/534/023/original/-OqfL_F8O9pbM69t6fmxww.jpg) 0% 0% / cover no-repeat;
+    background: url(https://cdn.pixabay.com/photo/2016/07/08/08/59/background-1503863_960_720.png) 0% 0% / cover no-repeat;
 }
 
 #share::after {
