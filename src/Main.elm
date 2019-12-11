@@ -19,8 +19,7 @@ main =
 
 
 init :
-    { quizAddr : String
-    , trackingId : String
+    { trackingId : String
     , clientId : String
     }
     -> ( Model.Model, Cmd Msg.Msg )

@@ -20,7 +20,6 @@ ga(function(tracker) {
   Elm.Main.init({
     node: document.getElementById('root'),
     flags: {
-      quizAddr: "http://localhost:3000/quiz.json",
       clientId: clientId,
       trackingId: "UA-151596008-1"
     }
