@@ -118,7 +118,7 @@ viewQuiz quiz currentQuestion questionsSize =
                                 [ class "button"
                                 , onClick <| Msg.Quiz Msg.Next
                                 ]
-                                [ text "Дальше" ]
+                                [ text "Next" ]
                             ]
                        ]
         )

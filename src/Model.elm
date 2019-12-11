@@ -282,6 +282,21 @@ questions_ =
       , fail = "Unfortunately no, unlike Haskell and PureScript"
       , success = "Yeah. That's why Elm does not have a generic map function which works across multiple data structures such as List and Set"
       }
+    , { description = "What are the mechanisms for JS interacting"
+      , answers =
+            [ { text = "Banners and Ports"
+              , correct = False
+              }
+            , { text = "Flags and Ports"
+              , correct = True
+              }
+            , { text = "Flags and Harbours"
+              , correct = False
+              }
+            ]
+      , fail = "Nope. It's Flags and Ports"
+      , success = "You're right!"
+      }
     ]
 
 
