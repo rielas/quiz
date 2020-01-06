@@ -84,6 +84,7 @@ button {
     border-color: rgb(230, 230, 230);
     border-image: initial;
     border-radius: 8px;
+    background: unset;
 }
 
 .answer {
@@ -96,8 +97,10 @@ button {
     letter-spacing: 0px;
     cursor: pointer;
     color: rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(230, 230, 230);
+    border: 1px solid rgb(230, 230, 230) !important;
     padding: 10px 74px 10px 12px;
+    margin-bottom: 10px;
+    border-radius: 8px !important;
 }
 
 .fail {
@@ -116,7 +119,7 @@ button {
 }
 
 .answer:first-child {
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 8px;
 }
 
 .answer:last-child {
@@ -290,4 +293,18 @@ h1 span {
     color: rgb(0, 0, 0);
     letter-spacing: 0px;
     margin: 0px;
+}
+
+@media all and (max-width: 899px) {
+    body {
+        max-width: unset;
+        padding: 0px 20px;
+    }
+    .game-wrapper {
+        width: 100%;
+    }
+    #share {
+        left: -20px;
+        width: 100%;
+    }
 }
