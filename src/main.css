@@ -85,6 +85,7 @@ button {
     border-image: initial;
     border-radius: 8px;
     background: unset;
+    border: unset;
 }
 
 .answer {
