@@ -20,6 +20,7 @@ jobs:
         git config --global user.name "GitHub Actions"
         git clone https://${ACCESS_TOKEN:-"x-access-token:$GITHUB_TOKEN"}@github.com/anatol-1988/quiz.git -b gh-pages
         cp -a build/. quiz/
+        /bin/cp src/main.css quiz/main.css
         cd quiz
         git add .
         git commit -m "Deploying" --quiet
