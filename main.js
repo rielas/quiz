@@ -519,11 +519,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.am.S === region.av.S)
+	if (region.ap.S === region.aA.S)
 	{
-		return 'on line ' + region.am.S;
+		return 'on line ' + region.ap.S;
 	}
-	return 'on lines ' + region.am.S + ' through ' + region.av.S;
+	return 'on lines ' + region.ap.S + ' through ' + region.aA.S;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.bl,
+		impl.bo,
+		impl.bF,
 		impl.bC,
-		impl.bz,
 		function() { return function() {} }
 	);
 });
@@ -2660,8 +2660,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		v: func(record.v),
-		ao: record.ao,
-		aj: record.aj
+		ar: record.ar,
+		am: record.am
 	}
 });
 
@@ -2930,10 +2930,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.v;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ao;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ar;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.aj) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.am) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3883,11 +3883,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.bl,
+		impl.bo,
+		impl.bF,
 		impl.bC,
-		impl.bz,
 		function(sendToApp, initialModel) {
-			var view = impl.bE;
+			var view = impl.bG;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3919,12 +3919,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.bl,
+		impl.bo,
+		impl.bF,
 		impl.bC,
-		impl.bz,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.al && impl.al(sendToApp)
-			var view = impl.bE;
+			var divertHrefToApp = impl.ao && impl.ao(sendToApp)
+			var view = impl.bG;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3932,12 +3932,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bb);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aw);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.bB) && (_VirtualDom_doc.title = title = doc.bB);
+				(title !== doc.bE) && (_VirtualDom_doc.title = title = doc.bE);
 			});
 		}
 	);
@@ -3993,12 +3993,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.bq;
-	var onUrlRequest = impl.br;
+	var onUrlChange = impl.bt;
+	var onUrlRequest = impl.bu;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		al: function(sendToApp)
+		ao: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4014,9 +4014,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.aR === next.aR
-							&& curr.aD === next.aD
-							&& curr.aN.a === next.aN.a
+							&& curr.aW === next.aW
+							&& curr.aI === next.aI
+							&& curr.aS.a === next.aS.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4024,13 +4024,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		bl: function(flags)
+		bo: function(flags)
 		{
-			return A3(impl.bl, flags, _Browser_getUrl(), key);
+			return A3(impl.bo, flags, _Browser_getUrl(), key);
 		},
-		bE: impl.bE,
-		bC: impl.bC,
-		bz: impl.bz
+		bG: impl.bG,
+		bF: impl.bF,
+		bC: impl.bC
 	});
 }
 
@@ -4096,17 +4096,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { bj: 'hidden', bc: 'visibilitychange' }
+		? { bm: 'hidden', bg: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { bj: 'mozHidden', bc: 'mozvisibilitychange' }
+		? { bm: 'mozHidden', bg: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { bj: 'msHidden', bc: 'msvisibilitychange' }
+		? { bm: 'msHidden', bg: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { bj: 'webkitHidden', bc: 'webkitvisibilitychange' }
-		: { bj: 'hidden', bc: 'visibilitychange' };
+		? { bm: 'webkitHidden', bg: 'webkitvisibilitychange' }
+		: { bm: 'hidden', bg: 'visibilitychange' };
 }
 
 
@@ -4187,10 +4187,10 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		a_: _Browser_getScene(),
-		a6: {
-			ad: _Browser_window.pageXOffset,
-			ae: _Browser_window.pageYOffset,
+		a3: _Browser_getScene(),
+		bb: {
+			af: _Browser_window.pageXOffset,
+			ag: _Browser_window.pageYOffset,
 			O: _Browser_doc.documentElement.clientWidth,
 			H: _Browser_doc.documentElement.clientHeight
 		}
@@ -4226,13 +4226,13 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			a_: {
+			a3: {
 				O: node.scrollWidth,
 				H: node.scrollHeight
 			},
-			a6: {
-				ad: node.scrollLeft,
-				ae: node.scrollTop,
+			bb: {
+				af: node.scrollLeft,
+				ag: node.scrollTop,
 				O: node.clientWidth,
 				H: node.clientHeight
 			}
@@ -4264,16 +4264,16 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			a_: _Browser_getScene(),
-			a6: {
-				ad: x,
-				ae: y,
+			a3: _Browser_getScene(),
+			bb: {
+				af: x,
+				ag: y,
 				O: _Browser_doc.documentElement.clientWidth,
 				H: _Browser_doc.documentElement.clientHeight
 			},
-			be: {
-				ad: x + rect.left,
-				ae: y + rect.top,
+			bi: {
+				af: x + rect.left,
+				ag: y + rect.top,
 				O: rect.width,
 				H: rect.height
 			}
@@ -4357,25 +4357,25 @@ var _Http_toTask = F3(function(router, toTask, request)
 	return _Scheduler_binding(function(callback)
 	{
 		function done(response) {
-			callback(toTask(request.bf.a(response)));
+			callback(toTask(request.ai.a(response)));
 		}
 
 		var xhr = new XMLHttpRequest();
 		xhr.addEventListener('error', function() { done($elm$http$Http$NetworkError_); });
 		xhr.addEventListener('timeout', function() { done($elm$http$Http$Timeout_); });
-		xhr.addEventListener('load', function() { done(_Http_toResponse(request.bf.b, xhr)); });
-		$elm$core$Maybe$isJust(request.a4) && _Http_track(router, xhr, request.a4.a);
+		xhr.addEventListener('load', function() { done(_Http_toResponse(request.ai.b, xhr)); });
+		$elm$core$Maybe$isJust(request.a9) && _Http_track(router, xhr, request.a9.a);
 
 		try {
-			xhr.open(request.bn, request.bD, true);
+			xhr.open(request.bq, request.at, true);
 		} catch (e) {
-			return done($elm$http$Http$BadUrl_(request.bD));
+			return done($elm$http$Http$BadUrl_(request.at));
 		}
 
 		_Http_configureRequest(xhr, request);
 
-		request.bb.a && xhr.setRequestHeader('Content-Type', request.bb.a);
-		xhr.send(request.bb.b);
+		request.aw.a && xhr.setRequestHeader('Content-Type', request.aw.a);
+		xhr.send(request.aw.b);
 
 		return function() { xhr.c = true; xhr.abort(); };
 	});
@@ -4386,13 +4386,13 @@ var _Http_toTask = F3(function(router, toTask, request)
 
 function _Http_configureRequest(xhr, request)
 {
-	for (var headers = request.aB; headers.b; headers = headers.b) // WHILE_CONS
+	for (var headers = request.aG; headers.b; headers = headers.b) // WHILE_CONS
 	{
 		xhr.setRequestHeader(headers.a.a, headers.a.b);
 	}
-	xhr.timeout = request.bA.a || 0;
-	xhr.responseType = request.bf.d;
-	xhr.withCredentials = request.a9;
+	xhr.timeout = request.bD.a || 0;
+	xhr.responseType = request.ai.d;
+	xhr.withCredentials = request.be;
 }
 
 
@@ -4413,10 +4413,10 @@ function _Http_toResponse(toBody, xhr)
 function _Http_toMetadata(xhr)
 {
 	return {
-		bD: xhr.responseURL,
-		bx: xhr.status,
-		by: xhr.statusText,
-		aB: _Http_parseHeaders(xhr.getAllResponseHeaders())
+		at: xhr.responseURL,
+		bA: xhr.status,
+		bB: xhr.statusText,
+		aG: _Http_parseHeaders(xhr.getAllResponseHeaders())
 	};
 }
 
@@ -4511,15 +4511,15 @@ function _Http_track(router, xhr, tracker)
 	xhr.upload.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Sending({
-			bw: event.loaded,
-			a0: event.total
+			bz: event.loaded,
+			a5: event.total
 		}))));
 	});
 	xhr.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Receiving({
-			bu: event.loaded,
-			a0: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
+			bx: event.loaded,
+			a5: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
 		}))));
 	});
 }
@@ -5174,7 +5174,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {az: fragment, aD: host, aL: path, aN: port_, aR: protocol, aS: query};
+		return {aE: fragment, aI: host, aQ: path, aS: port_, aW: protocol, aX: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5522,13 +5522,13 @@ var $author$project$Model$scores_ = _List_fromArray(
 var $author$project$Model$startPage_ = '<h1>Do you know Elm?</h1><p>Let\'s see how good you know Elm language: the best language for frontend development</p><img alt=\"The Elm tangram\" width=\"120\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Elm_logo.svg/800px-Elm_logo.svg.png\">';
 var $author$project$Model$emptyModel = F2(
 	function (trackingId, clientId) {
-		return {af: clientId, R: 0, ag: $author$project$Model$finishPage_, ab: 0, x: $author$project$Model$questions_, ak: $author$project$Model$scores_, an: $author$project$Model$startPage_, y: $author$project$Model$Start, ap: trackingId};
+		return {ah: clientId, R: 0, aj: $author$project$Model$finishPage_, ad: 0, x: $author$project$Model$questions_, an: $author$project$Model$scores_, aq: $author$project$Model$startPage_, y: $author$project$Model$Start, as: trackingId};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = function (flags) {
 	return _Utils_Tuple2(
-		A2($author$project$Model$emptyModel, flags.ap, flags.af),
+		A2($author$project$Model$emptyModel, flags.as, flags.ah),
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$json$Json$Decode$string = _Json_decodeString;
@@ -5684,30 +5684,30 @@ var $author$project$Model$answerQuestion = F2(
 			model,
 			{R: correctAnswers, y: state_});
 	});
-var $author$project$Model$currentQuestion = function (model) {
-	return model.ab - $elm$core$List$length(model.x);
+var $anatol_1988$measurement$HitType$Event = 2;
+var $anatol_1988$measurement$Parameter$EventAction = function (a) {
+	return {$: 42, a: a};
 };
-var $elm$core$Platform$Cmd$map = _Platform_map;
-var $author$project$Model$nextQuestion = function (model) {
-	var _v0 = model.x;
-	if (_v0.b) {
-		var question = _v0.a;
-		var rest = _v0.b;
-		return _Utils_update(
-			model,
-			{
-				x: rest,
-				y: $author$project$Model$Quiz(
-					{Q: $author$project$Model$NotYet, Z: question})
-			});
-	} else {
-		return _Utils_update(
-			model,
-			{y: $author$project$Model$Finish});
-	}
+var $anatol_1988$measurement$Parameter$EventCategory = function (a) {
+	return {$: 41, a: a};
 };
-var $author$project$Analytics$Pageview = 0;
-var $author$project$Analytics$Measured = $elm$core$Basics$identity;
+var $anatol_1988$measurement$Parameter$EventLabel = function (a) {
+	return {$: 43, a: a};
+};
+var $anatol_1988$measurement$Parameter$EventValue = function (a) {
+	return {$: 44, a: a};
+};
+var $elm$http$Http$Request = function (a) {
+	return {$: 1, a: a};
+};
+var $elm$http$Http$State = F2(
+	function (reqs, subs) {
+		return {aZ: reqs, a7: subs};
+	});
+var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
+var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
+var $elm$http$Http$init = $elm$core$Task$succeed(
+	A2($elm$http$Http$State, $elm$core$Dict$empty, _List_Nil));
 var $elm$http$Http$BadStatus_ = F2(
 	function (a, b) {
 		return {$: 3, a: a, b: b};
@@ -5727,8 +5727,6 @@ var $elm$http$Http$Sending = function (a) {
 	return {$: 0, a: a};
 };
 var $elm$http$Http$Timeout_ = {$: 1};
-var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
-var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 var $elm$core$Maybe$isJust = function (maybe) {
 	if (!maybe.$) {
 		return true;
@@ -6250,11 +6248,175 @@ var $elm$core$Dict$update = F3(
 			return A2($elm$core$Dict$remove, targetKey, dictionary);
 		}
 	});
+var $elm$core$Process$kill = _Scheduler_kill;
+var $elm$core$Process$spawn = _Scheduler_spawn;
+var $elm$http$Http$updateReqs = F3(
+	function (router, cmds, reqs) {
+		updateReqs:
+		while (true) {
+			if (!cmds.b) {
+				return $elm$core$Task$succeed(reqs);
+			} else {
+				var cmd = cmds.a;
+				var otherCmds = cmds.b;
+				if (!cmd.$) {
+					var tracker = cmd.a;
+					var _v2 = A2($elm$core$Dict$get, tracker, reqs);
+					if (_v2.$ === 1) {
+						var $temp$router = router,
+							$temp$cmds = otherCmds,
+							$temp$reqs = reqs;
+						router = $temp$router;
+						cmds = $temp$cmds;
+						reqs = $temp$reqs;
+						continue updateReqs;
+					} else {
+						var pid = _v2.a;
+						return A2(
+							$elm$core$Task$andThen,
+							function (_v3) {
+								return A3(
+									$elm$http$Http$updateReqs,
+									router,
+									otherCmds,
+									A2($elm$core$Dict$remove, tracker, reqs));
+							},
+							$elm$core$Process$kill(pid));
+					}
+				} else {
+					var req = cmd.a;
+					return A2(
+						$elm$core$Task$andThen,
+						function (pid) {
+							var _v4 = req.a9;
+							if (_v4.$ === 1) {
+								return A3($elm$http$Http$updateReqs, router, otherCmds, reqs);
+							} else {
+								var tracker = _v4.a;
+								return A3(
+									$elm$http$Http$updateReqs,
+									router,
+									otherCmds,
+									A3($elm$core$Dict$insert, tracker, pid, reqs));
+							}
+						},
+						$elm$core$Process$spawn(
+							A3(
+								_Http_toTask,
+								router,
+								$elm$core$Platform$sendToApp(router),
+								req)));
+				}
+			}
+		}
+	});
+var $elm$http$Http$onEffects = F4(
+	function (router, cmds, subs, state) {
+		return A2(
+			$elm$core$Task$andThen,
+			function (reqs) {
+				return $elm$core$Task$succeed(
+					A2($elm$http$Http$State, reqs, subs));
+			},
+			A3($elm$http$Http$updateReqs, router, cmds, state.aZ));
+	});
+var $elm$core$List$maybeCons = F3(
+	function (f, mx, xs) {
+		var _v0 = f(mx);
+		if (!_v0.$) {
+			var x = _v0.a;
+			return A2($elm$core$List$cons, x, xs);
+		} else {
+			return xs;
+		}
+	});
+var $elm$core$List$filterMap = F2(
+	function (f, xs) {
+		return A3(
+			$elm$core$List$foldr,
+			$elm$core$List$maybeCons(f),
+			_List_Nil,
+			xs);
+	});
+var $elm$http$Http$maybeSend = F4(
+	function (router, desiredTracker, progress, _v0) {
+		var actualTracker = _v0.a;
+		var toMsg = _v0.b;
+		return _Utils_eq(desiredTracker, actualTracker) ? $elm$core$Maybe$Just(
+			A2(
+				$elm$core$Platform$sendToApp,
+				router,
+				toMsg(progress))) : $elm$core$Maybe$Nothing;
+	});
+var $elm$http$Http$onSelfMsg = F3(
+	function (router, _v0, state) {
+		var tracker = _v0.a;
+		var progress = _v0.b;
+		return A2(
+			$elm$core$Task$andThen,
+			function (_v1) {
+				return $elm$core$Task$succeed(state);
+			},
+			$elm$core$Task$sequence(
+				A2(
+					$elm$core$List$filterMap,
+					A3($elm$http$Http$maybeSend, router, tracker, progress),
+					state.a7)));
+	});
+var $elm$http$Http$Cancel = function (a) {
+	return {$: 0, a: a};
+};
+var $elm$http$Http$cmdMap = F2(
+	function (func, cmd) {
+		if (!cmd.$) {
+			var tracker = cmd.a;
+			return $elm$http$Http$Cancel(tracker);
+		} else {
+			var r = cmd.a;
+			return $elm$http$Http$Request(
+				{
+					be: r.be,
+					aw: r.aw,
+					ai: A2(_Http_mapExpect, func, r.ai),
+					aG: r.aG,
+					bq: r.bq,
+					bD: r.bD,
+					a9: r.a9,
+					at: r.at
+				});
+		}
+	});
+var $elm$http$Http$MySub = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
+	});
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
 		return g(
 			f(x));
 	});
+var $elm$http$Http$subMap = F2(
+	function (func, _v0) {
+		var tracker = _v0.a;
+		var toMsg = _v0.b;
+		return A2(
+			$elm$http$Http$MySub,
+			tracker,
+			A2($elm$core$Basics$composeR, toMsg, func));
+	});
+_Platform_effectManagers['Http'] = _Platform_createManager($elm$http$Http$init, $elm$http$Http$onEffects, $elm$http$Http$onSelfMsg, $elm$http$Http$cmdMap, $elm$http$Http$subMap);
+var $elm$http$Http$command = _Platform_leaf('Http');
+var $elm$http$Http$subscription = _Platform_leaf('Http');
+var $elm$http$Http$request = function (r) {
+	return $elm$http$Http$command(
+		$elm$http$Http$Request(
+			{be: false, aw: r.aw, ai: r.ai, aG: r.aG, bq: r.bq, bD: r.bD, a9: r.a9, at: r.at}));
+};
+var $elm$http$Http$post = function (r) {
+	return $elm$http$Http$request(
+		{aw: r.aw, ai: r.ai, aG: _List_Nil, bq: 'POST', bD: $elm$core$Maybe$Nothing, a9: $elm$core$Maybe$Nothing, at: r.at});
+};
+var $anatol_1988$measurement$Measurement$Measured = $elm$core$Basics$identity;
 var $elm$http$Http$expectBytesResponse = F2(
 	function (toMsg, toResult) {
 		return A3(
@@ -6299,7 +6461,7 @@ var $elm$http$Http$resolve = F2(
 			case 3:
 				var metadata = response.a;
 				return $elm$core$Result$Err(
-					$elm$http$Http$BadStatus(metadata.bx));
+					$elm$http$Http$BadStatus(metadata.bA));
 			default:
 				var body = response.b;
 				return A2(
@@ -6317,213 +6479,33 @@ var $elm$http$Http$expectWhatever = function (toMsg) {
 				return $elm$core$Result$Ok(0);
 			}));
 };
-var $elm$http$Http$Request = function (a) {
-	return {$: 1, a: a};
+var $anatol_1988$measurement$Parameter$ClientID = function (a) {
+	return {$: 6, a: a};
 };
-var $elm$http$Http$State = F2(
-	function (reqs, subs) {
-		return {aU: reqs, a2: subs};
-	});
-var $elm$http$Http$init = $elm$core$Task$succeed(
-	A2($elm$http$Http$State, $elm$core$Dict$empty, _List_Nil));
-var $elm$core$Process$kill = _Scheduler_kill;
-var $elm$core$Process$spawn = _Scheduler_spawn;
-var $elm$http$Http$updateReqs = F3(
-	function (router, cmds, reqs) {
-		updateReqs:
-		while (true) {
-			if (!cmds.b) {
-				return $elm$core$Task$succeed(reqs);
-			} else {
-				var cmd = cmds.a;
-				var otherCmds = cmds.b;
-				if (!cmd.$) {
-					var tracker = cmd.a;
-					var _v2 = A2($elm$core$Dict$get, tracker, reqs);
-					if (_v2.$ === 1) {
-						var $temp$router = router,
-							$temp$cmds = otherCmds,
-							$temp$reqs = reqs;
-						router = $temp$router;
-						cmds = $temp$cmds;
-						reqs = $temp$reqs;
-						continue updateReqs;
-					} else {
-						var pid = _v2.a;
-						return A2(
-							$elm$core$Task$andThen,
-							function (_v3) {
-								return A3(
-									$elm$http$Http$updateReqs,
-									router,
-									otherCmds,
-									A2($elm$core$Dict$remove, tracker, reqs));
-							},
-							$elm$core$Process$kill(pid));
-					}
-				} else {
-					var req = cmd.a;
-					return A2(
-						$elm$core$Task$andThen,
-						function (pid) {
-							var _v4 = req.a4;
-							if (_v4.$ === 1) {
-								return A3($elm$http$Http$updateReqs, router, otherCmds, reqs);
-							} else {
-								var tracker = _v4.a;
-								return A3(
-									$elm$http$Http$updateReqs,
-									router,
-									otherCmds,
-									A3($elm$core$Dict$insert, tracker, pid, reqs));
-							}
-						},
-						$elm$core$Process$spawn(
-							A3(
-								_Http_toTask,
-								router,
-								$elm$core$Platform$sendToApp(router),
-								req)));
-				}
-			}
-		}
-	});
-var $elm$http$Http$onEffects = F4(
-	function (router, cmds, subs, state) {
-		return A2(
-			$elm$core$Task$andThen,
-			function (reqs) {
-				return $elm$core$Task$succeed(
-					A2($elm$http$Http$State, reqs, subs));
-			},
-			A3($elm$http$Http$updateReqs, router, cmds, state.aU));
-	});
-var $elm$core$List$maybeCons = F3(
-	function (f, mx, xs) {
-		var _v0 = f(mx);
-		if (!_v0.$) {
-			var x = _v0.a;
-			return A2($elm$core$List$cons, x, xs);
-		} else {
-			return xs;
-		}
-	});
-var $elm$core$List$filterMap = F2(
-	function (f, xs) {
-		return A3(
-			$elm$core$List$foldr,
-			$elm$core$List$maybeCons(f),
-			_List_Nil,
-			xs);
-	});
-var $elm$http$Http$maybeSend = F4(
-	function (router, desiredTracker, progress, _v0) {
-		var actualTracker = _v0.a;
-		var toMsg = _v0.b;
-		return _Utils_eq(desiredTracker, actualTracker) ? $elm$core$Maybe$Just(
-			A2(
-				$elm$core$Platform$sendToApp,
-				router,
-				toMsg(progress))) : $elm$core$Maybe$Nothing;
-	});
-var $elm$http$Http$onSelfMsg = F3(
-	function (router, _v0, state) {
-		var tracker = _v0.a;
-		var progress = _v0.b;
-		return A2(
-			$elm$core$Task$andThen,
-			function (_v1) {
-				return $elm$core$Task$succeed(state);
-			},
-			$elm$core$Task$sequence(
-				A2(
-					$elm$core$List$filterMap,
-					A3($elm$http$Http$maybeSend, router, tracker, progress),
-					state.a2)));
-	});
-var $elm$http$Http$Cancel = function (a) {
+var $anatol_1988$measurement$Parameter$Hittype = function (a) {
+	return {$: 28, a: a};
+};
+var $anatol_1988$measurement$Parameter$ProtocolVersion = function (a) {
 	return {$: 0, a: a};
 };
-var $elm$http$Http$cmdMap = F2(
-	function (func, cmd) {
-		if (!cmd.$) {
-			var tracker = cmd.a;
-			return $elm$http$Http$Cancel(tracker);
-		} else {
-			var r = cmd.a;
-			return $elm$http$Http$Request(
-				{
-					a9: r.a9,
-					bb: r.bb,
-					bf: A2(_Http_mapExpect, func, r.bf),
-					aB: r.aB,
-					bn: r.bn,
-					bA: r.bA,
-					a4: r.a4,
-					bD: r.bD
-				});
-		}
-	});
-var $elm$http$Http$MySub = F2(
-	function (a, b) {
-		return {$: 0, a: a, b: b};
-	});
-var $elm$http$Http$subMap = F2(
-	function (func, _v0) {
-		var tracker = _v0.a;
-		var toMsg = _v0.b;
-		return A2(
-			$elm$http$Http$MySub,
-			tracker,
-			A2($elm$core$Basics$composeR, toMsg, func));
-	});
-_Platform_effectManagers['Http'] = _Platform_createManager($elm$http$Http$init, $elm$http$Http$onEffects, $elm$http$Http$onSelfMsg, $elm$http$Http$cmdMap, $elm$http$Http$subMap);
-var $elm$http$Http$command = _Platform_leaf('Http');
-var $elm$http$Http$subscription = _Platform_leaf('Http');
-var $elm$http$Http$request = function (r) {
-	return $elm$http$Http$command(
-		$elm$http$Http$Request(
-			{a9: false, bb: r.bb, bf: r.bf, aB: r.aB, bn: r.bn, bA: r.bA, a4: r.a4, bD: r.bD}));
+var $anatol_1988$measurement$Parameter$TrackingID = function (a) {
+	return {$: 1, a: a};
 };
-var $elm$http$Http$post = function (r) {
-	return $elm$http$Http$request(
-		{bb: r.bb, bf: r.bf, aB: _List_Nil, bn: 'POST', bA: $elm$core$Maybe$Nothing, a4: $elm$core$Maybe$Nothing, bD: r.bD});
+var $anatol_1988$measurement$Parameter$boolToInt = function (bool) {
+	return bool ? 1 : 0;
 };
-var $author$project$Analytics$hit = function (_v0) {
-	var url = _v0.a;
-	var body = _v0.b;
-	return $elm$http$Http$post(
-		{
-			bb: body,
-			bf: $elm$http$Http$expectWhatever($elm$core$Basics$identity),
-			bD: url
-		});
-};
-var $elm$url$Url$Builder$toQueryPair = function (_v0) {
-	var key = _v0.a;
-	var value = _v0.b;
-	return key + ('=' + value);
-};
-var $elm$url$Url$Builder$toQuery = function (parameters) {
-	if (!parameters.b) {
-		return '';
-	} else {
-		return '?' + A2(
-			$elm$core$String$join,
-			'&',
-			A2($elm$core$List$map, $elm$url$Url$Builder$toQueryPair, parameters));
-	}
-};
-var $elm$url$Url$Builder$absolute = F2(
-	function (pathSegments, parameters) {
-		return '/' + (A2($elm$core$String$join, '/', pathSegments) + $elm$url$Url$Builder$toQuery(parameters));
-	});
-var $elm$http$Http$emptyBody = _Http_emptyBody;
 var $elm$url$Url$Builder$QueryParameter = F2(
 	function (a, b) {
 		return {$: 0, a: a, b: b};
 	});
 var $elm$url$Url$percentEncode = _Url_percentEncode;
+var $elm$url$Url$Builder$int = F2(
+	function (key, value) {
+		return A2(
+			$elm$url$Url$Builder$QueryParameter,
+			$elm$url$Url$percentEncode(key),
+			$elm$core$String$fromInt(value));
+	});
 var $elm$url$Url$Builder$string = F2(
 	function (key, value) {
 		return A2(
@@ -6531,7 +6513,11 @@ var $elm$url$Url$Builder$string = F2(
 			$elm$url$Url$percentEncode(key),
 			$elm$url$Url$percentEncode(value));
 	});
-var $author$project$Analytics$toString = function (hitType) {
+var $anatol_1988$measurement$Currency$toString = function (currency) {
+	var string = currency;
+	return string;
+};
+var $anatol_1988$measurement$HitType$toString = function (hitType) {
 	switch (hitType) {
 		case 0:
 			return 'pageview';
@@ -6551,30 +6537,587 @@ var $author$project$Analytics$toString = function (hitType) {
 			return 'timing';
 	}
 };
-var $author$project$Analytics$request = F4(
-	function (type_, trackingId, clientId, documentPath) {
-		var url = A2(
-			$elm$url$Url$Builder$absolute,
-			_List_fromArray(
-				['collect']),
-			_List_fromArray(
-				[
-					A2($elm$url$Url$Builder$string, 'v', '1'),
-					A2(
-					$elm$url$Url$Builder$string,
-					't',
-					$author$project$Analytics$toString(type_)),
-					A2($elm$url$Url$Builder$string, 'tid', trackingId),
-					A2($elm$url$Url$Builder$string, 'cid', clientId),
-					A2($elm$url$Url$Builder$string, 'dp', documentPath)
-				]));
-		return _Utils_Tuple2('https://www.google-analytics.com' + url, $elm$http$Http$emptyBody);
+var $anatol_1988$measurement$Parameter$toQuery = function (param) {
+	switch (param.$) {
+		case 0:
+			var version = param.a;
+			return A2($elm$url$Url$Builder$string, 'v', version);
+		case 1:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'tid', id);
+		case 2:
+			var anonymize = param.a;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'aip',
+				$anatol_1988$measurement$Parameter$boolToInt(anonymize));
+		case 3:
+			var source = param.a;
+			return A2($elm$url$Url$Builder$string, 'ds', source);
+		case 4:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'qt', time);
+		case 5:
+			var cache = param.a;
+			return A2($elm$url$Url$Builder$string, 'z', cache);
+		case 6:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'cid', id);
+		case 7:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'uid', id);
+		case 8:
+			var control = param.a;
+			return A2($elm$url$Url$Builder$string, 'sc', control);
+		case 9:
+			var ip = param.a;
+			return A2($elm$url$Url$Builder$string, 'uip', ip);
+		case 10:
+			var agent = param.a;
+			return A2($elm$url$Url$Builder$string, 'ua', agent);
+		case 11:
+			var geo = param.a;
+			return A2($elm$url$Url$Builder$string, 'geoid', geo);
+		case 12:
+			var referrer = param.a;
+			return A2($elm$url$Url$Builder$string, 'dr', referrer);
+		case 13:
+			var name = param.a;
+			return A2($elm$url$Url$Builder$string, 'cn', name);
+		case 14:
+			var source = param.a;
+			return A2($elm$url$Url$Builder$string, 'cs', source);
+		case 15:
+			var medium = param.a;
+			return A2($elm$url$Url$Builder$string, 'cm', medium);
+		case 16:
+			var keyword = param.a;
+			return A2($elm$url$Url$Builder$string, 'ck', keyword);
+		case 17:
+			var content = param.a;
+			return A2($elm$url$Url$Builder$string, 'cc', content);
+		case 18:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'ci', id);
+		case 19:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'gclid', id);
+		case 20:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'dclid', id);
+		case 21:
+			var resolution = param.a;
+			return A2($elm$url$Url$Builder$string, 'sr', resolution);
+		case 22:
+			var size = param.a;
+			return A2($elm$url$Url$Builder$string, 'vp', size);
+		case 23:
+			var encoding = param.a;
+			return A2($elm$url$Url$Builder$string, 'de', encoding);
+		case 24:
+			var colors = param.a;
+			return A2($elm$url$Url$Builder$string, 'sd', colors);
+		case 25:
+			var lang = param.a;
+			return A2($elm$url$Url$Builder$string, 'ul', lang);
+		case 26:
+			var enabled = param.a;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'je',
+				$anatol_1988$measurement$Parameter$boolToInt(enabled));
+		case 27:
+			var version = param.a;
+			return A2($elm$url$Url$Builder$string, 'fl', version);
+		case 28:
+			var type_ = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				't',
+				$anatol_1988$measurement$HitType$toString(type_));
+		case 29:
+			var hit = param.a;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'ni',
+				$anatol_1988$measurement$Parameter$boolToInt(hit));
+		case 30:
+			var url = param.a;
+			return A2($elm$url$Url$Builder$string, 'dl', url);
+		case 31:
+			var name = param.a;
+			return A2($elm$url$Url$Builder$string, 'dh', name);
+		case 32:
+			var path = param.a;
+			return A2($elm$url$Url$Builder$string, 'dp', path);
+		case 33:
+			var title = param.a;
+			return A2($elm$url$Url$Builder$string, 'dt', title);
+		case 34:
+			var name = param.a;
+			return A2($elm$url$Url$Builder$string, 'cd', name);
+		case 35:
+			var groupIndex = param.a;
+			var group = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'cg' + $elm$core$String$fromInt(groupIndex),
+				group);
+		case 36:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'linkid', id);
+		case 37:
+			var name = param.a;
+			return A2($elm$url$Url$Builder$string, 'an', name);
+		case 38:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'aid', id);
+		case 39:
+			var version = param.a;
+			return A2($elm$url$Url$Builder$string, 'av', version);
+		case 40:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'aiid', id);
+		case 41:
+			var category = param.a;
+			return A2($elm$url$Url$Builder$string, 'ec', category);
+		case 42:
+			var action = param.a;
+			return A2($elm$url$Url$Builder$string, 'ea', action);
+		case 43:
+			var label = param.a;
+			return A2($elm$url$Url$Builder$string, 'el', label);
+		case 44:
+			var value = param.a;
+			return A2($elm$url$Url$Builder$int, 'ev', value);
+		case 45:
+			var id = param.a;
+			return A2($elm$url$Url$Builder$string, 'ti', id);
+		case 46:
+			var affilation = param.a;
+			return A2($elm$url$Url$Builder$string, 'ta', affilation);
+		case 47:
+			var revenue = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'tr',
+				$anatol_1988$measurement$Currency$toString(revenue));
+		case 48:
+			var shipping = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'ts',
+				$anatol_1988$measurement$Currency$toString(shipping));
+		case 49:
+			var tax = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'tt',
+				$anatol_1988$measurement$Currency$toString(tax));
+		case 50:
+			var name = param.a;
+			return A2($elm$url$Url$Builder$string, 'in', name);
+		case 51:
+			var price = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'ip',
+				$anatol_1988$measurement$Currency$toString(price));
+		case 52:
+			var quantity = param.a;
+			return A2($elm$url$Url$Builder$int, 'iq', quantity);
+		case 53:
+			var code = param.a;
+			return A2($elm$url$Url$Builder$string, 'ic', code);
+		case 54:
+			var category = param.a;
+			return A2($elm$url$Url$Builder$string, 'iv', category);
+		case 55:
+			var productIndex = param.a;
+			var sku = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'id'),
+				sku);
+		case 56:
+			var productIndex = param.a;
+			var name = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'nm'),
+				name);
+		case 57:
+			var productIndex = param.a;
+			var brand = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'br'),
+				brand);
+		case 58:
+			var productIndex = param.a;
+			var category = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'ca'),
+				category);
+		case 59:
+			var productIndex = param.a;
+			var variant = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'va'),
+				variant);
+		case 60:
+			var productIndex = param.a;
+			var price = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'pr'),
+				$anatol_1988$measurement$Currency$toString(price));
+		case 61:
+			var productIndex = param.a;
+			var quantity = param.b;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'qt'),
+				quantity);
+		case 62:
+			var productIndex = param.a;
+			var code = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'cc'),
+				code);
+		case 63:
+			var productIndex = param.a;
+			var position = param.b;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'pr' + ($elm$core$String$fromInt(productIndex) + 'ps'),
+				position);
+		case 64:
+			var productIndex = param.a;
+			var dimensionIndex = param.b;
+			var dimension = param.c;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'pr' + ($elm$core$String$fromInt(productIndex) + ('cd' + $elm$core$String$fromInt(dimensionIndex))),
+				dimension);
+		case 65:
+			var productIndex = param.a;
+			var metricIndex = param.b;
+			var metric = param.c;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'pr' + ($elm$core$String$fromInt(productIndex) + ('cm' + $elm$core$String$fromInt(metricIndex))),
+				metric);
+		case 66:
+			var listIndex = param.a;
+			var name = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + 'nm'),
+				name);
+		case 67:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var sku = param.c;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + 'id'))),
+				sku);
+		case 68:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var name = param.c;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + 'nm'))),
+				name);
+		case 69:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var brand = param.c;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + 'br'))),
+				brand);
+		case 70:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var category = param.c;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + 'ca'))),
+				category);
+		case 71:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var variant = param.c;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + 'va'))),
+				variant);
+		case 72:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var position = param.c;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + 'ps'))),
+				position);
+		case 73:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var price = param.c;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + 'pr'))),
+				$anatol_1988$measurement$Currency$toString(price));
+		case 74:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var dimensionIndex = param.c;
+			var dimension = param.d;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + ('cd' + $elm$core$String$fromInt(dimensionIndex))))),
+				dimension);
+		case 75:
+			var listIndex = param.a;
+			var productIndex = param.b;
+			var metricIndex = param.c;
+			var metric = param.d;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'il' + ($elm$core$String$fromInt(listIndex) + ('pi' + ($elm$core$String$fromInt(productIndex) + ('cm' + $elm$core$String$fromInt(metricIndex))))),
+				metric);
+		case 76:
+			var action = param.a;
+			return A2($elm$url$Url$Builder$string, 'pa', action);
+		case 77:
+			var affilation = param.a;
+			return A2($elm$url$Url$Builder$string, 'ta', affilation);
+		case 78:
+			var revenue = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'tr',
+				$anatol_1988$measurement$Currency$toString(revenue));
+		case 79:
+			var tax = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'tt',
+				$anatol_1988$measurement$Currency$toString(tax));
+		case 80:
+			var shipping = param.a;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'ts',
+				$anatol_1988$measurement$Currency$toString(shipping));
+		case 81:
+			var code = param.a;
+			return A2($elm$url$Url$Builder$string, 'tcc', code);
+		case 82:
+			var list = param.a;
+			return A2($elm$url$Url$Builder$string, 'pal', list);
+		case 83:
+			var step = param.a;
+			return A2($elm$url$Url$Builder$int, 'cos', step);
+		case 84:
+			var option = param.a;
+			return A2($elm$url$Url$Builder$string, 'col', option);
+		case 85:
+			var promoIndex = param.a;
+			var id = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'promo' + ($elm$core$String$fromInt(promoIndex) + 'id'),
+				id);
+		case 86:
+			var promoIndex = param.a;
+			var name = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'promo' + ($elm$core$String$fromInt(promoIndex) + 'nm'),
+				name);
+		case 87:
+			var promoIndex = param.a;
+			var creative = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'promo' + ($elm$core$String$fromInt(promoIndex) + 'cr'),
+				creative);
+		case 88:
+			var promoIndex = param.a;
+			var position = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'promo' + ($elm$core$String$fromInt(promoIndex) + 'ps'),
+				position);
+		case 89:
+			var action = param.a;
+			return A2($elm$url$Url$Builder$string, 'promoa', action);
+		case 90:
+			var code = param.a;
+			return A2($elm$url$Url$Builder$string, 'cu', code);
+		case 91:
+			var network = param.a;
+			return A2($elm$url$Url$Builder$string, 'sn', network);
+		case 92:
+			var action = param.a;
+			return A2($elm$url$Url$Builder$string, 'sa', action);
+		case 93:
+			var target = param.a;
+			return A2($elm$url$Url$Builder$string, 'st', target);
+		case 94:
+			var category = param.a;
+			return A2($elm$url$Url$Builder$string, 'utc', category);
+		case 95:
+			var name = param.a;
+			return A2($elm$url$Url$Builder$string, 'utv', name);
+		case 96:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'utt', time);
+		case 97:
+			var label = param.a;
+			return A2($elm$url$Url$Builder$string, 'utl', label);
+		case 98:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'plt', time);
+		case 99:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'dns', time);
+		case 100:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'pdt', time);
+		case 101:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'rrt', time);
+		case 102:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'tcp', time);
+		case 103:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'srt', time);
+		case 104:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'dit', time);
+		case 105:
+			var time = param.a;
+			return A2($elm$url$Url$Builder$int, 'clt', time);
+		case 106:
+			var description = param.a;
+			return A2($elm$url$Url$Builder$string, 'exd', description);
+		case 107:
+			var fatal = param.a;
+			return A2(
+				$elm$url$Url$Builder$int,
+				'exf',
+				$anatol_1988$measurement$Parameter$boolToInt(fatal));
+		case 108:
+			var dimension = param.a;
+			var value = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'cd' + $elm$core$String$fromInt(dimension),
+				value);
+		default:
+			var metric = param.a;
+			var value = param.b;
+			return A2(
+				$elm$url$Url$Builder$string,
+				'cm' + $elm$core$String$fromInt(metric),
+				value);
+	}
+};
+var $elm$url$Url$Builder$toQueryPair = function (_v0) {
+	var key = _v0.a;
+	var value = _v0.b;
+	return key + ('=' + value);
+};
+var $elm$url$Url$Builder$toQuery = function (parameters) {
+	if (!parameters.b) {
+		return '';
+	} else {
+		return '?' + A2(
+			$elm$core$String$join,
+			'&',
+			A2($elm$core$List$map, $elm$url$Url$Builder$toQueryPair, parameters));
+	}
+};
+var $anatol_1988$measurement$Measurement$payloadToQuery = function (hit) {
+	var payload = _Utils_ap(
+		_List_fromArray(
+			[
+				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Parameter$ProtocolVersion('1')),
+				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Parameter$TrackingID(hit.as)),
+				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Parameter$ClientID(hit.ah)),
+				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Parameter$Hittype(hit.aa))
+			]),
+		A2(
+			$elm$core$List$map,
+			function (param) {
+				return $anatol_1988$measurement$Parameter$toQuery(param);
+			},
+			hit.ac));
+	return A2(
+		$elm$core$String$dropLeft,
+		1,
+		$elm$url$Url$Builder$toQuery(payload));
+};
+var $elm$http$Http$stringBody = _Http_pair;
+var $anatol_1988$measurement$Measurement$post = function (hit) {
+	return {
+		aw: A2(
+			$elm$http$Http$stringBody,
+			'',
+			$anatol_1988$measurement$Measurement$payloadToQuery(hit)),
+		ai: $elm$http$Http$expectWhatever($elm$core$Basics$identity),
+		at: 'https://www.google-analytics.com/collect'
+	};
+};
+var $anatol_1988$measurement$Measurement$event = F6(
+	function (trackingId, clientId, category, action, label, value) {
+		return $elm$http$Http$post(
+			$anatol_1988$measurement$Measurement$post(
+				{
+					ah: clientId,
+					aa: 2,
+					ac: _List_fromArray(
+						[
+							$anatol_1988$measurement$Parameter$EventCategory(category),
+							$anatol_1988$measurement$Parameter$EventAction(action),
+							$anatol_1988$measurement$Parameter$EventLabel(label),
+							$anatol_1988$measurement$Parameter$EventValue(value)
+						]),
+					as: trackingId
+				}));
 	});
-var $author$project$Analytics$pageview = F3(
-	function (trackingId, clientId, documentPath) {
-		return $author$project$Analytics$hit(
-			A4($author$project$Analytics$request, 0, trackingId, clientId, documentPath));
-	});
+var $elm$core$Platform$Cmd$map = _Platform_map;
+var $author$project$Model$nextQuestion = function (model) {
+	var _v0 = model.x;
+	if (_v0.b) {
+		var question = _v0.a;
+		var rest = _v0.b;
+		return _Utils_update(
+			model,
+			{
+				x: rest,
+				y: $author$project$Model$Quiz(
+					{Q: $author$project$Model$NotYet, Z: question})
+			});
+	} else {
+		return _Utils_update(
+			model,
+			{y: $author$project$Model$Finish});
+	}
+};
 var $author$project$Model$startQuiz = function (model) {
 	var size = $elm$core$List$length(model.x);
 	var _v0 = model.x;
@@ -6584,7 +7127,7 @@ var $author$project$Model$startQuiz = function (model) {
 		return _Utils_update(
 			model,
 			{
-				ab: size,
+				ad: size,
 				x: rest,
 				y: $author$project$Model$Quiz(
 					{Q: $author$project$Model$NotYet, Z: question})
@@ -6615,12 +7158,7 @@ var $author$project$Main$update = F2(
 						A2(
 							$elm$core$Platform$Cmd$map,
 							$author$project$Messages$Measured,
-							A3(
-								$author$project$Analytics$pageview,
-								model.ap,
-								model.af,
-								'/quiz/' + $elm$core$String$fromInt(
-									$author$project$Model$currentQuestion(model)))));
+							A6($anatol_1988$measurement$Measurement$event, model.as, model.ah, '1', '2', '3', 4)));
 				}
 			default:
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -6635,6 +7173,9 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $author$project$Model$currentQuestion = function (model) {
+	return model.ad - $elm$core$List$length(model.x);
+};
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm_community$list_extra$List$Extra$last = function (items) {
 	last:
@@ -6760,7 +7301,7 @@ var $elm$parser$Parser$Advanced$AddRight = F2(
 	});
 var $elm$parser$Parser$Advanced$DeadEnd = F4(
 	function (row, col, problem, contextStack) {
-		return {at: col, bd: contextStack, aO: problem, aY: row};
+		return {ay: col, bh: contextStack, aT: problem, a1: row};
 	});
 var $elm$parser$Parser$Advanced$Empty = {$: 0};
 var $elm$parser$Parser$Advanced$fromState = F2(
@@ -6768,7 +7309,7 @@ var $elm$parser$Parser$Advanced$fromState = F2(
 		return A2(
 			$elm$parser$Parser$Advanced$AddRight,
 			$elm$parser$Parser$Advanced$Empty,
-			A4($elm$parser$Parser$Advanced$DeadEnd, s.aY, s.at, x, s.c));
+			A4($elm$parser$Parser$Advanced$DeadEnd, s.a1, s.ay, x, s.c));
 	});
 var $elm$parser$Parser$Advanced$isSubChar = _Parser_isSubChar;
 var $elm$core$Basics$negate = function (n) {
@@ -6785,11 +7326,11 @@ var $elm$parser$Parser$Advanced$chompIf = F2(
 				$elm$parser$Parser$Advanced$Good,
 				true,
 				0,
-				{at: 1, c: s.c, d: s.d, b: s.b + 1, aY: s.aY + 1, a: s.a}) : A3(
+				{ay: 1, c: s.c, d: s.d, b: s.b + 1, a1: s.a1 + 1, a: s.a}) : A3(
 				$elm$parser$Parser$Advanced$Good,
 				true,
 				0,
-				{at: s.at + 1, c: s.c, d: s.d, b: newOffset, aY: s.aY, a: s.a}));
+				{ay: s.ay + 1, c: s.c, d: s.d, b: newOffset, a1: s.a1, a: s.a}));
 		};
 	});
 var $elm$parser$Parser$chompIf = function (isGood) {
@@ -6805,7 +7346,7 @@ var $elm$parser$Parser$Advanced$chompWhileHelp = F5(
 					$elm$parser$Parser$Advanced$Good,
 					_Utils_cmp(s0.b, offset) < 0,
 					0,
-					{at: col, c: s0.c, d: s0.d, b: offset, aY: row, a: s0.a});
+					{ay: col, c: s0.c, d: s0.d, b: offset, a1: row, a: s0.a});
 			} else {
 				if (_Utils_eq(newOffset, -2)) {
 					var $temp$isGood = isGood,
@@ -6837,7 +7378,7 @@ var $elm$parser$Parser$Advanced$chompWhileHelp = F5(
 	});
 var $elm$parser$Parser$Advanced$chompWhile = function (isGood) {
 	return function (s) {
-		return A5($elm$parser$Parser$Advanced$chompWhileHelp, isGood, s.b, s.aY, s.at, s);
+		return A5($elm$parser$Parser$Advanced$chompWhileHelp, isGood, s.b, s.a1, s.ay, s);
 	};
 };
 var $elm$parser$Parser$chompWhile = $elm$parser$Parser$Advanced$chompWhile;
@@ -6988,7 +7529,7 @@ var $elm$parser$Parser$Advanced$chompUntil = function (_v0) {
 	var str = _v0.a;
 	var expecting = _v0.b;
 	return function (s) {
-		var _v1 = A5($elm$parser$Parser$Advanced$findSubString, str, s.b, s.aY, s.at, s.a);
+		var _v1 = A5($elm$parser$Parser$Advanced$findSubString, str, s.b, s.a1, s.ay, s.a);
 		var newOffset = _v1.a;
 		var newRow = _v1.b;
 		var newCol = _v1.c;
@@ -6999,7 +7540,7 @@ var $elm$parser$Parser$Advanced$chompUntil = function (_v0) {
 			$elm$parser$Parser$Advanced$Good,
 			_Utils_cmp(s.b, newOffset) < 0,
 			0,
-			{at: newCol, c: s.c, d: s.d, b: newOffset, aY: newRow, a: s.a});
+			{ay: newCol, c: s.c, d: s.d, b: newOffset, a1: newRow, a: s.a});
 	};
 };
 var $elm$parser$Parser$Expecting = function (a) {
@@ -7030,7 +7571,7 @@ var $elm$parser$Parser$Advanced$token = function (_v0) {
 	var expecting = _v0.b;
 	var progress = !$elm$core$String$isEmpty(str);
 	return function (s) {
-		var _v1 = A5($elm$parser$Parser$Advanced$isSubString, str, s.b, s.aY, s.at, s.a);
+		var _v1 = A5($elm$parser$Parser$Advanced$isSubString, str, s.b, s.a1, s.ay, s.a);
 		var newOffset = _v1.a;
 		var newRow = _v1.b;
 		var newCol = _v1.c;
@@ -7041,7 +7582,7 @@ var $elm$parser$Parser$Advanced$token = function (_v0) {
 			$elm$parser$Parser$Advanced$Good,
 			progress,
 			0,
-			{at: newCol, c: s.c, d: s.d, b: newOffset, aY: newRow, a: s.a});
+			{ay: newCol, c: s.c, d: s.d, b: newOffset, a1: newRow, a: s.a});
 	};
 };
 var $elm$parser$Parser$token = function (str) {
@@ -9656,7 +10197,7 @@ var $elm$parser$Parser$Advanced$consumeBase = _Parser_consumeBase;
 var $elm$parser$Parser$Advanced$consumeBase16 = _Parser_consumeBase16;
 var $elm$parser$Parser$Advanced$bumpOffset = F2(
 	function (newOffset, s) {
-		return {at: s.at + (newOffset - s.b), c: s.c, d: s.d, b: newOffset, aY: s.aY, a: s.a};
+		return {ay: s.ay + (newOffset - s.b), c: s.c, d: s.d, b: newOffset, a1: s.a1, a: s.a};
 	});
 var $elm$parser$Parser$Advanced$chompBase10 = _Parser_chompBase10;
 var $elm$parser$Parser$Advanced$isAsciiCode = _Parser_isAsciiCode;
@@ -9709,7 +10250,7 @@ var $elm$parser$Parser$Advanced$finalizeFloat = F6(
 			return A2(
 				$elm$parser$Parser$Advanced$Bad,
 				true,
-				A4($elm$parser$Parser$Advanced$fromInfo, s.aY, s.at - (floatOffset + s.b), invalid, s.c));
+				A4($elm$parser$Parser$Advanced$fromInfo, s.a1, s.ay - (floatOffset + s.b), invalid, s.c));
 		} else {
 			if (_Utils_eq(s.b, floatOffset)) {
 				return A2(
@@ -9755,37 +10296,37 @@ var $elm$parser$Parser$Advanced$number = function (c) {
 			var baseOffset = zeroOffset + 1;
 			return A3($elm$parser$Parser$Advanced$isAsciiCode, 120, zeroOffset, s.a) ? A5(
 				$elm$parser$Parser$Advanced$finalizeInt,
-				c.bm,
-				c.aC,
+				c.bp,
+				c.aH,
 				baseOffset,
 				A2($elm$parser$Parser$Advanced$consumeBase16, baseOffset, s.a),
 				s) : (A3($elm$parser$Parser$Advanced$isAsciiCode, 111, zeroOffset, s.a) ? A5(
 				$elm$parser$Parser$Advanced$finalizeInt,
-				c.bm,
-				c.aK,
+				c.bp,
+				c.aP,
 				baseOffset,
 				A3($elm$parser$Parser$Advanced$consumeBase, 8, baseOffset, s.a),
 				s) : (A3($elm$parser$Parser$Advanced$isAsciiCode, 98, zeroOffset, s.a) ? A5(
 				$elm$parser$Parser$Advanced$finalizeInt,
-				c.bm,
-				c.ar,
+				c.bp,
+				c.av,
 				baseOffset,
 				A3($elm$parser$Parser$Advanced$consumeBase, 2, baseOffset, s.a),
 				s) : A6(
 				$elm$parser$Parser$Advanced$finalizeFloat,
-				c.bm,
-				c.ax,
-				c.aF,
-				c.ay,
+				c.bp,
+				c.aC,
+				c.aK,
+				c.aD,
 				_Utils_Tuple2(zeroOffset, 0),
 				s)));
 		} else {
 			return A6(
 				$elm$parser$Parser$Advanced$finalizeFloat,
-				c.bm,
-				c.ax,
-				c.aF,
-				c.ay,
+				c.bp,
+				c.aC,
+				c.aK,
+				c.aD,
 				A3($elm$parser$Parser$Advanced$consumeBase, 10, s.b, s.a),
 				s);
 		}
@@ -9795,13 +10336,13 @@ var $elm$parser$Parser$Advanced$int = F2(
 	function (expecting, invalid) {
 		return $elm$parser$Parser$Advanced$number(
 			{
-				ar: $elm$core$Result$Err(invalid),
-				ax: expecting,
-				ay: $elm$core$Result$Err(invalid),
-				aC: $elm$core$Result$Err(invalid),
-				aF: $elm$core$Result$Ok($elm$core$Basics$identity),
-				bm: invalid,
-				aK: $elm$core$Result$Err(invalid)
+				av: $elm$core$Result$Err(invalid),
+				aC: expecting,
+				aD: $elm$core$Result$Err(invalid),
+				aH: $elm$core$Result$Err(invalid),
+				aK: $elm$core$Result$Ok($elm$core$Basics$identity),
+				bp: invalid,
+				aP: $elm$core$Result$Err(invalid)
 			});
 	});
 var $elm$parser$Parser$int = A2($elm$parser$Parser$Advanced$int, $elm$parser$Parser$ExpectingInt, $elm$parser$Parser$ExpectingInt);
@@ -10072,10 +10613,10 @@ $hecrj$html_parser$Html$Parser$cyclic$element = function () {
 };
 var $elm$parser$Parser$DeadEnd = F3(
 	function (row, col, problem) {
-		return {at: col, aO: problem, aY: row};
+		return {ay: col, aT: problem, a1: row};
 	});
 var $elm$parser$Parser$problemToDeadEnd = function (p) {
-	return A3($elm$parser$Parser$DeadEnd, p.aY, p.at, p.aO);
+	return A3($elm$parser$Parser$DeadEnd, p.a1, p.ay, p.aT);
 };
 var $elm$parser$Parser$Advanced$bagToList = F2(
 	function (bag, list) {
@@ -10107,7 +10648,7 @@ var $elm$parser$Parser$Advanced$run = F2(
 	function (_v0, src) {
 		var parse = _v0;
 		var _v1 = parse(
-			{at: 1, c: _List_Nil, d: 1, b: 0, aY: 1, a: src});
+			{ay: 1, c: _List_Nil, d: 1, b: 0, a1: 1, a: src});
 		if (!_v1.$) {
 			var value = _v1.b;
 			return $elm$core$Result$Ok(value);
@@ -10229,19 +10770,19 @@ var $author$project$View$setFields = F3(
 		}
 	});
 var $author$project$View$viewFinish = function (model) {
-	var score = $elm$core$String$fromInt(model.R) + ('/' + $elm$core$String$fromInt(model.ab));
+	var score = $elm$core$String$fromInt(model.R) + ('/' + $elm$core$String$fromInt(model.ad));
 	var description = A2(
 		$elm$core$Maybe$map,
 		function (s) {
 			return s.q;
 		},
-		A2($author$project$Model$getScore, model.ak, model.R));
+		A2($author$project$Model$getScore, model.an, model.R));
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
 		A3(
 			$author$project$View$setFields,
-			model.ag,
+			model.aj,
 			score,
 			A2($elm$core$Maybe$withDefault, '', description)));
 };
@@ -10452,7 +10993,7 @@ var $author$project$View$viewStart = function (model) {
 				A2(
 				$elm$html$Html$div,
 				_List_Nil,
-				$author$project$View$textHtml(model.an)),
+				$author$project$View$textHtml(model.aq)),
 				A2(
 				$elm$html$Html$div,
 				_List_Nil,
@@ -10491,7 +11032,7 @@ var $author$project$View$view = function (model) {
 							$author$project$View$viewQuiz,
 							quiz,
 							$author$project$Model$currentQuestion(model),
-							model.ab);
+							model.ad);
 					default:
 						return $author$project$View$viewFinish(model);
 				}
@@ -10499,7 +11040,7 @@ var $author$project$View$view = function (model) {
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
-	{bl: $author$project$Main$init, bz: $author$project$Main$subscriptions, bC: $author$project$Main$update, bE: $author$project$View$view});
+	{bo: $author$project$Main$init, bC: $author$project$Main$subscriptions, bF: $author$project$Main$update, bG: $author$project$View$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	A2(
 		$elm$json$Json$Decode$andThen,
@@ -10508,7 +11049,7 @@ _Platform_export({'Main':{'init':$author$project$Main$main(
 				$elm$json$Json$Decode$andThen,
 				function (clientId) {
 					return $elm$json$Json$Decode$succeed(
-						{af: clientId, ap: trackingId});
+						{ah: clientId, as: trackingId});
 				},
 				A2($elm$json$Json$Decode$field, 'clientId', $elm$json$Json$Decode$string));
 		},
