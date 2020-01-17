@@ -5534,7 +5534,7 @@ var $author$project$Main$init = function (flags) {
 var $elm$json$Json$Decode$string = _Json_decodeString;
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Main$subscriptions = function (model) {
+var $author$project$Main$subscriptions = function (_v0) {
 	return $elm$core$Platform$Sub$none;
 };
 var $author$project$Messages$Measured = function (a) {
@@ -6491,7 +6491,7 @@ var $anatol_1988$measurement$Parameter$ProtocolVersion = function (a) {
 var $anatol_1988$measurement$Parameter$TrackingID = function (a) {
 	return {$: 1, a: a};
 };
-var $anatol_1988$measurement$Parameter$boolToInt = function (bool) {
+var $anatol_1988$measurement$Query$boolToInt = function (bool) {
 	return bool ? 1 : 0;
 };
 var $elm$url$Url$Builder$QueryParameter = F2(
@@ -6517,7 +6517,7 @@ var $anatol_1988$measurement$Currency$toString = function (currency) {
 	var string = currency;
 	return string;
 };
-var $anatol_1988$measurement$HitType$toString = function (hitType) {
+var $anatol_1988$measurement$Query$toString = function (hitType) {
 	switch (hitType) {
 		case 0:
 			return 'pageview';
@@ -6537,7 +6537,7 @@ var $anatol_1988$measurement$HitType$toString = function (hitType) {
 			return 'timing';
 	}
 };
-var $anatol_1988$measurement$Parameter$toQuery = function (param) {
+var $anatol_1988$measurement$Query$toQuery = function (param) {
 	switch (param.$) {
 		case 0:
 			var version = param.a;
@@ -6550,7 +6550,7 @@ var $anatol_1988$measurement$Parameter$toQuery = function (param) {
 			return A2(
 				$elm$url$Url$Builder$int,
 				'aip',
-				$anatol_1988$measurement$Parameter$boolToInt(anonymize));
+				$anatol_1988$measurement$Query$boolToInt(anonymize));
 		case 3:
 			var source = param.a;
 			return A2($elm$url$Url$Builder$string, 'ds', source);
@@ -6625,7 +6625,7 @@ var $anatol_1988$measurement$Parameter$toQuery = function (param) {
 			return A2(
 				$elm$url$Url$Builder$int,
 				'je',
-				$anatol_1988$measurement$Parameter$boolToInt(enabled));
+				$anatol_1988$measurement$Query$boolToInt(enabled));
 		case 27:
 			var version = param.a;
 			return A2($elm$url$Url$Builder$string, 'fl', version);
@@ -6634,13 +6634,13 @@ var $anatol_1988$measurement$Parameter$toQuery = function (param) {
 			return A2(
 				$elm$url$Url$Builder$string,
 				't',
-				$anatol_1988$measurement$HitType$toString(type_));
+				$anatol_1988$measurement$Query$toString(type_));
 		case 29:
 			var hit = param.a;
 			return A2(
 				$elm$url$Url$Builder$int,
 				'ni',
-				$anatol_1988$measurement$Parameter$boolToInt(hit));
+				$anatol_1988$measurement$Query$boolToInt(hit));
 		case 30:
 			var url = param.a;
 			return A2($elm$url$Url$Builder$string, 'dl', url);
@@ -7015,7 +7015,7 @@ var $anatol_1988$measurement$Parameter$toQuery = function (param) {
 			return A2(
 				$elm$url$Url$Builder$int,
 				'exf',
-				$anatol_1988$measurement$Parameter$boolToInt(fatal));
+				$anatol_1988$measurement$Query$boolToInt(fatal));
 		case 108:
 			var dimension = param.a;
 			var value = param.b;
@@ -7051,19 +7051,19 @@ var $anatol_1988$measurement$Measurement$payloadToQuery = function (hit) {
 	var payload = _Utils_ap(
 		_List_fromArray(
 			[
-				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Query$toQuery(
 				$anatol_1988$measurement$Parameter$ProtocolVersion('1')),
-				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Query$toQuery(
 				$anatol_1988$measurement$Parameter$TrackingID(hit.as)),
-				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Query$toQuery(
 				$anatol_1988$measurement$Parameter$ClientID(hit.ah)),
-				$anatol_1988$measurement$Parameter$toQuery(
+				$anatol_1988$measurement$Query$toQuery(
 				$anatol_1988$measurement$Parameter$Hittype(hit.aa))
 			]),
 		A2(
 			$elm$core$List$map,
 			function (param) {
-				return $anatol_1988$measurement$Parameter$toQuery(param);
+				return $anatol_1988$measurement$Query$toQuery(param);
 			},
 			hit.ac));
 	return A2(
