@@ -1,14 +1,14 @@
 module Messages exposing (Msg(..), QuizMsg(..))
 
-import Analytics
 import Http
+import Measurement
 import Model
 
 
 type Msg
     = StartQuiz
     | Quiz QuizMsg
-    | Measured Analytics.Msg
+    | Measured Measurement.Msg
 
 
 type QuizMsg

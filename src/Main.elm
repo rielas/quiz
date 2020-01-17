@@ -1,9 +1,9 @@
 module Main exposing (init, main, subscriptions, update)
 
-import Analytics
 import Browser
 import Http
 import Json.Decode as Json
+import Measurement
 import Messages as Msg
 import Model
 import View
@@ -45,9 +45,12 @@ update msg model =
                 Msg.Answer answer ->
                     ( Model.answerQuestion answer model
                     , Cmd.map Msg.Measured <|
-                        Analytics.pageview model.trackingId model.clientId <|
-                            "/quiz/"
-                                ++ (String.fromInt <| Model.currentQuestion model)
+                        Measurement.event model.trackingId
+                            model.clientId
+                            "1"
+                            "2"
+                            "3"
+                            4
                     )
 
         Msg.Measured _ ->
