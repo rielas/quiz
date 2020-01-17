@@ -1,11 +1,12 @@
 module Main exposing (init, main, subscriptions, update)
 
 import Browser
+import HitType
 import Http
-import Json.Decode as Json
 import Measurement
 import Messages as Msg
 import Model
+import Parameter
 import View
 
 
@@ -62,5 +63,5 @@ update msg model =
 
 
 subscriptions : Model.Model -> Sub Msg.Msg
-subscriptions model =
+subscriptions _ =
     Sub.none
